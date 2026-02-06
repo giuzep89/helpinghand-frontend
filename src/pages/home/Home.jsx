@@ -2,9 +2,16 @@ import './Home.css';
 
 function Home() {
   return (
-    <div className="home">
-      <h1>Home</h1>
-    </div>
+    <main className="home outer-container">
+      <div className="home inner-container">
+        <section className="home-create-post">
+          {/* TODO create new post form */}
+        </section>
+        <section className="home-feed">
+          {/* TODO add the post cards list */}
+        </section>
+      </div>
+    </main>
   );
 }
 
