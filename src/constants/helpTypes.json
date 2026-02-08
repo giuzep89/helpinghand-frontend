@@ -1,0 +1,16 @@
+[
+  { "value": "GARDENING", "label": "Gardening" },
+  { "value": "TAXES", "label": "Taxes" },
+  { "value": "COMPANY", "label": "Company" },
+  { "value": "PLUMBING", "label": "Plumbing" },
+  { "value": "PAINTING", "label": "Painting" },
+  { "value": "MOVING", "label": "Moving" },
+  { "value": "IT", "label": "IT Support" },
+  { "value": "BUREAUCRACY", "label": "Bureaucracy" },
+  { "value": "LANGUAGE", "label": "Language" },
+  { "value": "GROCERIES", "label": "Groceries" },
+  { "value": "PETSITTING", "label": "Pet Sitting" },
+  { "value": "TRANSPORT", "label": "Transport" },
+  { "value": "REPAIRS", "label": "Repairs" },
+  { "value": "HOUSE_CHORES", "label": "House Chores" }
+]

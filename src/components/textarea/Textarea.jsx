@@ -1,6 +1,6 @@
 import './Textarea.css';
 
-function Textarea({ label, register, error, placeholder, rows = 4 }) {
+function Textarea({ label, register, error, placeholder, rows = 4, value, onChange }) {
   return (
     <div className="textarea-container">
       <label>
@@ -8,6 +8,8 @@ function Textarea({ label, register, error, placeholder, rows = 4 }) {
         <textarea
           placeholder={placeholder}
           rows={rows}
+          value={value}
+          onChange={onChange}
           {...register}
         />
       </label>
