@@ -1,11 +1,13 @@
 import './Input.css';
 
-function Input({ label, type = "text", id, register, error }) {
+function Input({ label, type = "text", register, error }) {
   return (
-    <div>
-      <label htmlFor={id}>{label}</label>
-      <input type={type} id={id} {...register} />
-      {error && <p>{error.message}</p>}
+    <div className="input-container">
+      <label>
+        <span>{label}</span>
+        <input type={type} {...register} />
+      </label>
+      {error && <p className="input-error">{error.message}</p>}
     </div>
   );
 }

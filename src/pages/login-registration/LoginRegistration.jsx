@@ -41,7 +41,6 @@ function LoginRegistration() {
         <Input
           label="Username"
           type="text"
-          id="login-username"
           register={registerLogin("username", {
             required: "Username is required",
             minLength: { value: 6, message: "Username must be at least 6 characters" },
@@ -51,7 +50,6 @@ function LoginRegistration() {
         <Input
           label="Password"
           type="password"
-          id="login-password"
           register={registerLogin("password", {
             required: "Password is required",
             minLength: { value: 8, message: "Password must be at least 8 characters" },
@@ -68,7 +66,6 @@ function LoginRegistration() {
         <Input
           label="Username"
           type="text"
-          id="signup-username"
           register={registerSignup("username", {
             required: "Username is required",
             minLength: { value: 6, message: "Username must be at least 6 characters" },
@@ -78,7 +75,6 @@ function LoginRegistration() {
         <Input
           label="Email"
           type="email"
-          id="signup-email"
           register={registerSignup("email", {
             required: "Email is required",
           })}
@@ -87,7 +83,6 @@ function LoginRegistration() {
         <Input
           label="Password"
           type="password"
-          id="signup-password"
           register={registerSignup("password", {
             required: "Password is required",
             minLength: { value: 8, message: "Password must be at least 8 characters" },
@@ -97,7 +92,6 @@ function LoginRegistration() {
         <Input
           label="Age"
           type="number"
-          id="signup-age"
           register={registerSignup("age", {
             required: "Age is required",
             min: { value: 18, message: "You must be at least 18 years old" },

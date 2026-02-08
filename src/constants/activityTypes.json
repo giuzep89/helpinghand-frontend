@@ -1,0 +1,7 @@
+[
+  { "value": "SPORTS", "label": "Sports" },
+  { "value": "CULTURE", "label": "Culture" },
+  { "value": "VOLUNTEERING", "label": "Volunteering" },
+  { "value": "SOCIAL", "label": "Social" },
+  { "value": "EDUCATIONAL", "label": "Educational" }
+]
