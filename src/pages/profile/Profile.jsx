@@ -1,17 +1,27 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import './Profile.css';
 import Avatar from '../../components/avatar/Avatar.jsx';
 import Button from '../../components/button/Button.jsx';
+import Input from '../../components/input/Input.jsx';
 import testDatabase from '../../constants/testDatabase.json';
 
 function Profile() {
   const [user, setUser] = useState(testDatabase.currentUser);
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    email: user.email,
-    age: user.age,
-    location: user.location,
-    competencies: user.competencies
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: user.email,
+      age: user.age,
+      location: user.location,
+      competencies: user.competencies,
+    },
   });
 
   function handleEdit() {
@@ -19,28 +29,21 @@ function Profile() {
   }
 
   function handleCancel() {
-    setFormData({
+    reset({
       email: user.email,
       age: user.age,
       location: user.location,
-      competencies: user.competencies
+      competencies: user.competencies,
     });
     setIsEditing(false);
   }
 
-  function handleSave() {
+  function onSave(data) {
     setUser((prevUser) => {
-      return { ...prevUser, ...formData };
+      return { ...prevUser, ...data };
     });
     setIsEditing(false);
-    console.log(formData); // TODO remove this later
-  }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData((prevData) => {
-      return { ...prevData, [name]: value };
-    });
+    console.log(data); // TODO remove this later
   }
 
   function handleDelete() {
@@ -55,52 +58,46 @@ function Profile() {
         <h1>{user.username}</h1>
 
         {isEditing ? (
-          <div className="profile-form">
-            <label>
-              <span>Email</span>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              <span>Password</span>
-              <input type="password" value="••••••••" disabled />
-            </label>
-            <label>
-              <span>Age</span>
-              <input
-                type="number"
-                name="age"
-                value={formData.age}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              <span>Location</span>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              <span>Things I can help with</span>
-              <input
-                type="text"
-                name="competencies"
-                value={formData.competencies}
-                onChange={handleChange}
-              />
-            </label>
+          <form className="profile-form" onSubmit={handleSubmit(onSave)}>
+            <Input
+              label="Email"
+              type="email"
+              register={register("email", {
+                required: "Email is required",
+              })}
+              error={errors.email}
+            />
+            <Input
+              label="Password"
+              type="password"
+              register={{ value: "••••••••" }}
+              disabled
+            />
+            <Input
+              label="Age"
+              type="number"
+              register={register("age", {
+                required: "Age is required",
+                min: { value: 18, message: "You must be at least 18 years old" },
+                max: { value: 150, message: "Age must be 150 or below" },
+              })}
+              error={errors.age}
+            />
+            <Input
+              label="Location"
+              type="text"
+              register={register("location")}
+            />
+            <Input
+              label="Things I can help with"
+              type="text"
+              register={register("competencies")}
+            />
             <div className="profile-actions">
-              <Button onClick={handleSave}>Save</Button>
-              <Button onClick={handleCancel}>Cancel</Button>
+              <Button type="submit">Save</Button>
+              <Button type="button" onClick={handleCancel}>Cancel</Button>
             </div>
-          </div>
+          </form>
         ) : (
           <div className="profile-details">
             <p><strong>Email:</strong> {user.email}</p>
