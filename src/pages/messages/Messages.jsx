@@ -87,7 +87,9 @@ function Messages() {
               <button type="submit">Send</button>
             </form>
           </>
+
         ) : (
+
           <div className="messages-conversation-empty">
             <p>Select a chat to start messaging</p>
           </div>
