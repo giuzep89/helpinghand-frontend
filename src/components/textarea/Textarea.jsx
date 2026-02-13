@@ -2,7 +2,7 @@ import './Textarea.css';
 
 function Textarea({ label, register, error, placeholder, rows = 4, value, onChange }) {
   return (
-    <div className="textarea-container">
+    <div className="input-container">
       <label>
         <span>{label}</span>
         <textarea
@@ -13,7 +13,7 @@ function Textarea({ label, register, error, placeholder, rows = 4, value, onChan
           {...register}
         />
       </label>
-      {error && <p className="textarea-error">{error.message}</p>}
+      {error && <p className="input-error">{error.message}</p>}
     </div>
   );
 }

@@ -1,1 +1,24 @@
-/* TODO Add styling!!! */
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  border: var(--border-width) solid var(--color-border);
+}
+
+.avatar-small {
+  width: 32px;
+  height: 32px;
+}
+
+.avatar-medium {
+  width: 64px;
+  height: 64px;
+}
+
+.avatar-large {
+  width: 128px;
+  height: 128px;
+}
+
+.avatar-placeholder {
+  border: none;
+}

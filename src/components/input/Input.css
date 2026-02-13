@@ -16,21 +16,24 @@
   text-align: left;
 }
 
-.input-container input {
+.input-container input,
+.input-container textarea {
   padding: var(--sizing-sm) var(--sizing-md);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
-  font-family: var(--font-family-body);
+  font-family: var(--font-family-body), serif;
   font-size: var(--font-size-base);
   background-color: #FFFFFF;
 }
 
-.input-container input:focus {
+.input-container input:focus,
+.input-container textarea:focus {
   outline: none;
   border-color: var(--color-button-primary);
 }
 
-.input-container input:disabled {
+.input-container input:disabled,
+.input-container textarea:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

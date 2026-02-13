@@ -8,7 +8,7 @@
       "location": "Amsterdam",
       "competencies": "Gardening, plumbing, electrical work",
       "prizes": ["GARDENING", "PLUMBING"],
-      "hasProfilePicture": true
+      "profilePicture": "https://i.pravatar.cc/150?u=jan"
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "location": "Utrecht",
       "competencies": "Cooking, gardening, language tutoring",
       "prizes": ["GARDENING"],
-      "hasProfilePicture": true
+      "profilePicture": "https://i.pravatar.cc/150?u=maria"
     },
     {
       "id": 3,
@@ -28,7 +28,7 @@
       "location": "Rotterdam",
       "competencies": "IT support, repairs, moving",
       "prizes": ["IT", "REPAIRS"],
-      "hasProfilePicture": true
+      "profilePicture": "https://i.pravatar.cc/150?u=piet"
     },
     {
       "id": 4,
@@ -38,7 +38,7 @@
       "location": "Den Haag",
       "competencies": "Pet sitting, groceries, transport",
       "prizes": ["PETSITTING"],
-      "hasProfilePicture": false
+      "profilePicture": null
     },
     {
       "id": 5,
@@ -48,7 +48,7 @@
       "location": "Eindhoven",
       "competencies": "Taxes, bureaucracy, painting",
       "prizes": ["TAXES", "BUREAUCRACY"],
-      "hasProfilePicture": true
+      "profilePicture": "https://i.pravatar.cc/150?u=kees"
     }
   ],
 
@@ -254,7 +254,7 @@
     "location": "Amsterdam",
     "competencies": "Gardening, plumbing, electrical work",
     "prizes": ["GARDENING", "PLUMBING"],
-    "hasProfilePicture": true
+    "profilePicture": "https://i.pravatar.cc/150?u=jan"
   },
 
   "friends": [
@@ -266,7 +266,7 @@
       "location": "Utrecht",
       "competencies": "Cooking, gardening, language tutoring",
       "prizes": ["GARDENING"],
-      "hasProfilePicture": true
+      "profilePicture": "https://i.pravatar.cc/150?u=maria"
     },
     {
       "id": 3,
@@ -276,7 +276,7 @@
       "location": "Rotterdam",
       "competencies": "IT support, repairs, moving",
       "prizes": ["IT", "REPAIRS"],
-      "hasProfilePicture": true
+      "profilePicture": "https://i.pravatar.cc/150?u=piet"
     },
     {
       "id": 4,
@@ -286,7 +286,7 @@
       "location": "Den Haag",
       "competencies": "Pet sitting, groceries, transport",
       "prizes": ["PETSITTING"],
-      "hasProfilePicture": false
+      "profilePicture": null
     }
   ]
 }
