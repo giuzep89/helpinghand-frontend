@@ -37,7 +37,7 @@ function PostCard({ post, currentUsername, onContact, onDelete, onHelpFound }) {
           <Button onClick={() => onHelpFound(post.id)}>Help Found</Button>
         )}
         {isAuthor && (
-          <Button onClick={() => onDelete(post.id)}>Delete</Button>
+          <Button variant="delete" onClick={() => onDelete(post.id)}>Delete</Button>
         )}
       </div>
     </article>

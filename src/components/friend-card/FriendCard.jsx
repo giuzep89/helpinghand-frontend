@@ -18,7 +18,7 @@ function FriendCard({ friend, onMessage, onUnfriend }) {
 
       <div className="friend-card-actions">
         <Button onClick={() => onMessage(friend)}>Message</Button>
-        <Button onClick={() => onUnfriend(friend)}>Unfriend</Button>
+        <Button variant="delete" onClick={() => onUnfriend(friend)}>Unfriend</Button>
       </div>
     </article>
   );

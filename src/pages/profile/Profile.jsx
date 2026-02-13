@@ -95,7 +95,7 @@ function Profile() {
             />
             <div className="profile-actions">
               <Button type="submit">Save</Button>
-              <Button type="button" onClick={handleCancel}>Cancel</Button>
+              <Button type="button" variant="delete" onClick={handleCancel}>Cancel</Button>
             </div>
           </form>
         ) : (
@@ -107,7 +107,7 @@ function Profile() {
             <p><strong>Things I can help with:</strong> {user.competencies}</p>
             <div className="profile-actions">
               <Button onClick={handleEdit}>Edit</Button>
-              <Button onClick={handleDelete}>Delete</Button>
+              <Button variant="delete" onClick={handleDelete}>Delete</Button>
             </div>
           </div>
         )}
