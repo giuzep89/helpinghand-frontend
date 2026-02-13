@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap');
+
 /* ================================
    CSS Reset
    ================================ */
@@ -19,7 +21,8 @@
   --color-background-card: #FFDAB3;       /* peach */
 
   /* Colors - Buttons */
-  --color-button-primary: #8B3A3A;        /* burgundy */
+  --color-button-primary: #8B3A3A;        /* burgundy - border/text */
+  --color-button-primary-bg: #B54D3D;     /* light red - background */
   --color-button-secondary: #5B8B7A;      /* teal */
   --color-button-outline: #8B5A3C;        /* brown */
 
@@ -43,13 +46,13 @@
   --sizing-2xl: 3rem;      /* 48px */
   --sizing-3xl: 4rem;      /* 64px */
 
-  /* Border Radius */
-  --radius: 0.25rem;       /* 4px */
+  /* Border */
+  --radius: 9px;
+  --border-width: 3px;
 
-  /* Typography - Font Families (PLACEHOLDER) */
-  /* TODO: Replace with final fonts and add explicit fallback fonts!! */
-  --font-family-heading: Georgia, serif;
-  --font-family-body: system-ui, sans-serif;
+  /* Typography - Font Families */
+  --font-family-heading: 'Quicksand', Arial, Helvetica, sans-serif;
+  --font-family-body: 'Open Sans', Arial, Helvetica, sans-serif;
 
   /* Typography - Font Sizes */
   --font-size-xs: 0.75rem;    /* 12px */
@@ -77,6 +80,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-heading);
+  font-weight: 600;
   color: var(--color-text-primary);
 }
 
