@@ -16,14 +16,14 @@
    ================================ */
 :root {
   /* Colors - Backgrounds */
-  --color-background-main: #F5DEB3;       /* wheat */
-  --color-background-sidebar: #4A5D4A;    /* olive */
+  --color-background-main: #F5DEB3;       /* beige */
+  --color-background-sidebar: #083529;    /* dark green */
   --color-background-card: #FFDAB3;       /* peach */
 
   /* Colors - Buttons */
   --color-button-primary: #8B3A3A;        /* burgundy - border/text */
   --color-button-primary-bg: #B54D3D;     /* light red - background */
-  --color-button-secondary: #5B8B7A;      /* teal */
+  --color-button-secondary: #6E9579;      /* sage green */
   --color-button-outline: #8B5A3C;        /* brown */
 
   /* Colors - Text */
@@ -34,10 +34,10 @@
   /* Colors - Accents */
   --color-border: #8B4513;                /* brown */
   --color-success: #5B8B7A;               /* teal */
-  --color-active: #8B3A3A;                /* burgundy */
-  --color-error: #DC2626;                 /* red */
+  --color-active: #B54D3D;                /* light red */
+  --color-error: #DC2626;                 /* red TODO verify if it's different enough from the other reds! */
 
-  /* Sizing Scale (4px base) */
+  /* Sizing */
   --sizing-xs: 0.25rem;    /* 4px */
   --sizing-sm: 0.5rem;     /* 8px */
   --sizing-md: 1rem;       /* 16px */

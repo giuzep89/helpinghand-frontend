@@ -1,1 +1,75 @@
-/*TODO add styling!!!*/
+.sidebar {
+  width: 180px;
+
+  height: calc(100vh - 2 * var(--sizing-md)); /* trying a different rounded design with these 3 styles, might remove it later */
+  margin: var(--sizing-md);
+  border-radius: var(--radius);
+
+  background-color: var(--color-background-sidebar);
+  display: flex;
+  flex-direction: column;
+  padding: var(--sizing-lg) var(--sizing-md);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sizing-lg);
+}
+
+.sidebar-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sizing-xs);
+  color: var(--color-text-light);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.sidebar-link img {
+  width: var(--sizing-xl);
+  height: var(--sizing-xl);
+}
+
+.sidebar-link:hover {
+  opacity: 0.80;
+}
+
+.sidebar-link.active {
+  color: var(--color-active);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sizing-sm);
+}
+
+.sidebar-logo {
+  width: 120px;
+  height: 120px;
+}
+
+.sidebar-username {
+  color: var(--color-text-light);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-base);
+}
+
+.sidebar-logout {
+  background-color: var(--color-button-secondary);
+  color: var(--color-text-light);
+  padding: var(--sizing-sm) var(--sizing-md);
+  border-radius: var(--radius);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  width: 100%;
+}
+
+.sidebar-logout:hover {
+  opacity: 0.9;
+}
