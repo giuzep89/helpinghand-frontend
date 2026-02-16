@@ -1,1 +1,32 @@
-/* TODO add styling */
+.chat-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--sizing-md);
+  padding: var(--sizing-md);
+  background-color: var(--color-background-card);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.chat-preview:hover {
+  opacity: 0.9;
+}
+
+.chat-preview-active {
+  border-color: var(--color-active);
+}
+
+.chat-preview-name {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--sizing-xs);
+}
+
+.chat-preview-message {
+  color: var(--color-text-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
