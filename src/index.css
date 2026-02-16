@@ -48,6 +48,7 @@
 
   /* Border */
   --radius: 9px;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.40);
   --border-width: 3px;
 
   /* Typography - Font Families */
