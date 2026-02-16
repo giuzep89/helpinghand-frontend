@@ -8,7 +8,6 @@
   box-shadow: var(--shadow);
 }
 
-/* Corner triangle for help type */
 .help-type-label {
   position: absolute;
   top: 0;
@@ -27,7 +26,6 @@
   height: 50px;
 }
 
-/* Help type color variants */
 .help-type-label.gardening { background-color: #90EE90; }
 .help-type-label.taxes { background-color: #DEB887; }
 .help-type-label.company { background-color: #DDA0DD; }
@@ -43,7 +41,6 @@
 .help-type-label.repairs { background-color: #DEB887; }
 .help-type-label.house_chores { background-color: #E6E6FA; }
 
-/* "Help found!" badge */
 .post-card-badge {
   position: absolute;
   bottom: var(--sizing-lg);
@@ -55,7 +52,6 @@
   transform: rotate(-15deg);
 }
 
-/* Header with avatar and username */
 .post-card-header {
   display: flex;
   align-items: center;
@@ -68,7 +64,6 @@
   font-weight: 600;
 }
 
-/* Content */
 .post-card-title {
   font-family: var(--font-family-heading);
   font-size: var(--font-size-xl);
@@ -81,7 +76,6 @@
   line-height: 1.5;
 }
 
-/* Action buttons */
 .post-card-actions {
   display: flex;
   gap: var(--sizing-sm);
