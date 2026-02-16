@@ -22,7 +22,7 @@
 
   /* Colors - Buttons */
   --color-button-primary: #8B3A3A;        /* burgundy - border/text */
-  --color-button-primary-bg: #B54D3D;     /* light red - background */
+  --color-button-primary-bg: #C44436;     /* light red - background */
   --color-button-secondary: #6E9579;      /* sage green */
   --color-button-outline: #8B5A3C;        /* brown */
 
@@ -34,7 +34,7 @@
   /* Colors - Accents */
   --color-border: #8B4513;                /* brown */
   --color-success: #5B8B7A;               /* teal */
-  --color-active: #B54D3D;                /* light red */
+  --color-active: #C44436;                /* light red */
   --color-error: #DC2626;                 /* red TODO verify if it's different enough from the other reds! */
 
   /* Sizing */

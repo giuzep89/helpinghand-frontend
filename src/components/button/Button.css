@@ -20,6 +20,7 @@
 .button-secondary {
   background-color: var(--color-button-secondary);
   color: var(--color-text-light);
+  border-color: var(--color-background-sidebar);
 }
 
 .button-secondary:hover {
