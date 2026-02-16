@@ -1,5 +1,5 @@
 .sidebar {
-  width: 180px;
+  width: 132px;
 
   height: calc(100vh - 2 * var(--sizing-md)); /* trying a different rounded design with these 3 styles, might remove it later */
   margin: var(--sizing-md);
@@ -58,7 +58,7 @@
 .sidebar-username {
   color: var(--color-text-light);
   font-family: var(--font-family-heading);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
 }
 
 .sidebar-logout {

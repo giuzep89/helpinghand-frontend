@@ -5,6 +5,7 @@ import testDatabase from '../../constants/testDatabase.json';
 
 function Friends() {
   const [friends, setFriends] = useState(testDatabase.friends);
+  const [searchQuery, setSearchQuery] = useState('');
 
   function handleMessage(friend) {
     // TODO: implement navigation to chat!
@@ -21,7 +22,14 @@ function Friends() {
 
   return (
     <div className="friends">
-      <h1>Friends</h1>
+      <div className="friends-search">
+        <input
+          type="text"
+          placeholder="Search for friends..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
       <div className="friends-list">
         {friends.map((friend) => (
           <FriendCard
