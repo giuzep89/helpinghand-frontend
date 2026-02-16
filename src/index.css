@@ -122,3 +122,16 @@ img {
   margin-right: auto;
   padding: var(--sizing-lg);
 }
+
+/* App + Sidebar layout */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  background-color: var(--color-background-main);
+}
+
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: var(--sizing-md);
+}

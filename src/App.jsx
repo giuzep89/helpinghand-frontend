@@ -11,17 +11,28 @@ function App() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
 
-  return (
-    <>
-      {!isLoginPage && <Sidebar />}
+  // login page is rendered with no sidebar
+  if (isLoginPage) {
+    return (
       <Routes>
         <Route path="/login" element={<LoginRegistration />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/friends" element={<Friends />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/profile" element={<Profile />} />
       </Routes>
-    </>
+    );
+  }
+
+  // layout with sidebar always visible
+  return (
+    <div className="app-layout">
+      <Sidebar />
+      <main className="app-main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/friends" element={<Friends />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 
