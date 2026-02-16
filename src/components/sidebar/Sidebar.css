@@ -6,6 +6,7 @@
   border-radius: var(--radius);
 
   background-color: var(--color-background-sidebar);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.50); /* this shadow is a little darker than in the rest of the app due to dark background */
   display: flex;
   flex-direction: column;
   padding: var(--sizing-lg) var(--sizing-md);

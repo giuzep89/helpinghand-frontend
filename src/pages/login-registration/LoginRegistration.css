@@ -18,6 +18,7 @@
 }
 
 .auth-title {
+  font-family: var(--font-family-logo);
   font-size: 3rem;
   margin-bottom: var(--sizing-sm);
 }

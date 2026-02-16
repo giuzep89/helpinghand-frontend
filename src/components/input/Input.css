@@ -24,6 +24,7 @@
   font-family: var(--font-family-body), serif;
   font-size: var(--font-size-base);
   background-color: #FFFFFF;
+  box-shadow: var(--shadow);
 }
 
 .input-container input:focus,
