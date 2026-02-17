@@ -1,1 +1,27 @@
-/* TODO add styling */
+.message-bubble {
+  max-width: 70%;
+  padding: var(--sizing-sm) var(--sizing-md);
+  border-radius: var(--radius);
+  margin-bottom: var(--sizing-md);
+}
+
+.message-bubble-content {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+
+
+.message-bubble-sent {
+  align-self: flex-end;
+  background-color: var(--color-background-main);
+  color: var(--color-text-body);
+}
+
+.message-bubble-received {
+  align-self: flex-start;
+  background-color: var(--color-button-secondary);
+  color: var(--color-text-light);
+}

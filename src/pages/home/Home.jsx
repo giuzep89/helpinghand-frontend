@@ -68,41 +68,64 @@ function Home() {
       <div className="home inner-container">
         <section className="home-create-post">
           <form onSubmit={handleCreatePost}>
-            <select
-              value={newPost.postType}
-              onChange={(e) => setNewPost({ ...newPost, postType: e.target.value })}
-            >
-              <option value="HELP_REQUEST">Help Request</option>
-              <option value="ACTIVITY">Activity</option>
-            </select>
+            <div className="post-type-selector">
+              <label className="post-type-option">
+                <input
+                  type="radio"
+                  name="postType"
+                  value="HELP_REQUEST"
+                  checked={newPost.postType === 'HELP_REQUEST'}
+                  onChange={(e) => setNewPost({ ...newPost, postType: e.target.value })}
+                />
+                <span>Help request</span>
+              </label>
+              <label className="post-type-option">
+                <input
+                  type="radio"
+                  name="postType"
+                  value="ACTIVITY"
+                  checked={newPost.postType === 'ACTIVITY'}
+                  onChange={(e) => setNewPost({ ...newPost, postType: e.target.value })}
+                />
+                <span>Activity</span>
+              </label>
+            </div>
 
-            {newPost.postType === 'HELP_REQUEST' ? (
-              <select
-                value={newPost.helpType}
-                onChange={(e) => setNewPost({ ...newPost, helpType: e.target.value })}
-              >
-                {helpTypes.map((type) => {
-                  return <option key={type.value} value={type.value}>{type.label}</option>;
-                })}
-              </select>
-            ) : (
-              <select
-                value={newPost.activityType}
-                onChange={(e) => setNewPost({ ...newPost, activityType: e.target.value })}
-              >
-                {activityTypes.map((type) => {
-                  return <option key={type.value} value={type.value}>{type.label}</option>;
-                })}
-              </select>
-            )}
+            <div className="post-category-selector">
+              <span className="post-category-label">
+                {newPost.postType === 'HELP_REQUEST' ? 'What do you need help with?' : 'What type of activity?'}
+              </span>
+              {newPost.postType === 'HELP_REQUEST' ? (
+                <select
+                  value={newPost.helpType}
+                  onChange={(e) => setNewPost({ ...newPost, helpType: e.target.value })}
+                >
+                  <option value="" disabled>Select one...</option>
+                  {helpTypes.map((type) => {
+                    return <option key={type.value} value={type.value}>{type.label}</option>;
+                  })}
+                </select>
+              ) : (
+                <select
+                  value={newPost.activityType}
+                  onChange={(e) => setNewPost({ ...newPost, activityType: e.target.value })}
+                >
+                  <option value="" disabled>Select one...</option>
+                  {activityTypes.map((type) => {
+                    return <option key={type.value} value={type.value}>{type.label}</option>;
+                  })}
+                </select>
+              )}
+            </div>
 
             <Textarea
-              label="Description"
+              label="Describe your request:"
+              placeholder="You request here..."
               value={newPost.description}
               onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
             />
 
-            <Button type="submit">Post</Button>
+            <Button type="submit">Post it!</Button>
           </form>
         </section>
         <section className="home-feed">

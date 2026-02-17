@@ -1,19 +1,51 @@
 import './PostCard.css';
 import Button from '../button/Button.jsx';
-import ProfilePicPlaceholder from '../../assets/Icons/ProfilePic-placeholder.svg';
+import Avatar from '../avatar/Avatar.jsx';
+
+import GardeningIcon from '../../assets/Icons/help requests label icons/gardening.svg';
+import TaxesIcon from '../../assets/Icons/help requests label icons/taxes.svg';
+import CompanyIcon from '../../assets/Icons/help requests label icons/company.svg';
+import PlumbingIcon from '../../assets/Icons/help requests label icons/plumbing.svg';
+import PaintingIcon from '../../assets/Icons/help requests label icons/painting.svg';
+import MovingIcon from '../../assets/Icons/help requests label icons/moving.svg';
+import ITIcon from '../../assets/Icons/help requests label icons/IT.svg';
+import BureaucracyIcon from '../../assets/Icons/help requests label icons/bureaucracy.svg';
+import LanguageIcon from '../../assets/Icons/help requests label icons/language.svg';
+import GroceriesIcon from '../../assets/Icons/help requests label icons/groceries.svg';
+import PetsittingIcon from '../../assets/Icons/help requests label icons/petsitting.svg';
+import TransportIcon from '../../assets/Icons/help requests label icons/transport.svg';
+import RepairsIcon from '../../assets/Icons/help requests label icons/repairs.svg';
+import ChoresIcon from '../../assets/Icons/help requests label icons/chores.svg';
+
+const helpTypeIcons = {
+  GARDENING: GardeningIcon,
+  TAXES: TaxesIcon,
+  COMPANY: CompanyIcon,
+  PLUMBING: PlumbingIcon,
+  PAINTING: PaintingIcon,
+  MOVING: MovingIcon,
+  IT: ITIcon,
+  BUREAUCRACY: BureaucracyIcon,
+  LANGUAGE: LanguageIcon,
+  GROCERIES: GroceriesIcon,
+  PETSITTING: PetsittingIcon,
+  TRANSPORT: TransportIcon,
+  REPAIRS: RepairsIcon,
+  HOUSE_CHORES: ChoresIcon
+};
 
 function PostCard({ post, currentUsername, onContact, onDelete, onHelpFound }) {
   const isAuthor = post.authorUsername === currentUsername;
   const isHelpRequest = post.postType === 'HELP_REQUEST';
 
-  // TODO replace placeholder with real profile picture from API
-  const authorPicture = ProfilePicPlaceholder;
+  // TODO replace with real profile picture URL from API
+  const authorPicture = `https://i.pravatar.cc/150?u=${post.authorUsername}`;
 
   return (
     <article className="post-card">
-      {isHelpRequest && (
-        <div className="help-type-label">
-          {/* TODO add styling/icon based on helpType */}
+      {isHelpRequest && post.helpType && (
+        <div className={`help-type-label ${post.helpType.toLowerCase()}`}>
+          <img src={helpTypeIcons[post.helpType]} alt="" />
         </div>
       )}
 
@@ -22,7 +54,7 @@ function PostCard({ post, currentUsername, onContact, onDelete, onHelpFound }) {
       )}
 
       <div className="post-card-header">
-        <img src={authorPicture} alt="" className="post-card-avatar" />
+        <Avatar src={authorPicture} size="medium" />
         <span className="post-card-username">{post.authorUsername}</span>
       </div>
 
@@ -37,7 +69,7 @@ function PostCard({ post, currentUsername, onContact, onDelete, onHelpFound }) {
           <Button onClick={() => onHelpFound(post.id)}>Help Found</Button>
         )}
         {isAuthor && (
-          <Button onClick={() => onDelete(post.id)}>Delete</Button>
+          <Button variant="delete" onClick={() => onDelete(post.id)}>Delete</Button>
         )}
       </div>
     </article>

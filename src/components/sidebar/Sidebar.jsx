@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext.jsx';
 import HomeIcon from '../../assets/Icons/Home.svg';
 import FriendsIcon from '../../assets/Icons/Friends.svg';
 import ChatIcon from '../../assets/Icons/Chat.svg';
-import ProfileIcon from '../../assets/Icons/Profile-navbar.svg';
+import ProfileIcon from '../../assets/Icons/User.svg';
 import AppLogo from '../../assets/Icons/AppLogo-navbar.svg';
 import './Sidebar.css';
 

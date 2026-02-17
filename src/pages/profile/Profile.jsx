@@ -17,7 +17,6 @@ function Profile() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: user.email,
       age: user.age,
       location: user.location,
       competencies: user.competencies,
@@ -30,7 +29,6 @@ function Profile() {
 
   function handleCancel() {
     reset({
-      email: user.email,
       age: user.age,
       location: user.location,
       competencies: user.competencies,
@@ -52,25 +50,24 @@ function Profile() {
   }
 
   return (
-    <div className="profile">
+    <div className="profile inner-container">
       <div className="profile-card">
-        <Avatar size="large" alt={user.username} />
+        <Avatar src={user.profilePicture} size="large" alt={user.username} />
         <h1>{user.username}</h1>
+        <hr className="profile-divider" />
 
         {isEditing ? (
           <form className="profile-form" onSubmit={handleSubmit(onSave)}>
             <Input
               label="Email"
               type="email"
-              register={register("email", {
-                required: "Email is required",
-              })}
-              error={errors.email}
+              value={user.email}
+              disabled
             />
             <Input
               label="Password"
               type="password"
-              register={{ value: "••••••••" }}
+              value="••••••••"
               disabled
             />
             <Input
@@ -95,7 +92,7 @@ function Profile() {
             />
             <div className="profile-actions">
               <Button type="submit">Save</Button>
-              <Button type="button" onClick={handleCancel}>Cancel</Button>
+              <Button type="button" variant="delete" onClick={handleCancel}>Cancel</Button>
             </div>
           </form>
         ) : (
@@ -105,9 +102,10 @@ function Profile() {
             <p><strong>Age:</strong> {user.age}</p>
             <p><strong>Location:</strong> {user.location}</p>
             <p><strong>Things I can help with:</strong> {user.competencies}</p>
+            <p><strong>Profile picture:</strong> <a href="#" className="profile-upload-link">Upload / update</a></p>
             <div className="profile-actions">
               <Button onClick={handleEdit}>Edit</Button>
-              <Button onClick={handleDelete}>Delete</Button>
+              <Button variant="delete" onClick={handleDelete}>Delete</Button>
             </div>
           </div>
         )}

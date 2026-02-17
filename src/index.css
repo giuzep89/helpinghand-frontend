@@ -1,68 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Quicksand:wght@500;600;700&family=Righteous&display=swap');
+
+/* ================================
+   CSS Reset
+   ================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================================
+   CSS Variables
+   ================================ */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Colors - Backgrounds */
+  --color-background-main: #F5DEB3;       /* beige */
+  --color-background-sidebar: #083529;    /* dark green */
+  --color-background-card: #F5D29F;       /* tan */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Colors - Buttons */
+  --color-button-primary: #8B3A3A;        /* burgundy - border/text */
+  --color-button-primary-bg: #C44436;     /* light red - background */
+  --color-button-secondary: #6E9579;      /* sage green */
+  --color-button-outline: #8B5A3C;        /* brown */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Colors - Text */
+  --color-text-primary: #5C3317;          /* dark brown */
+  --color-text-body: #4A4A4A;             /* dark gray */
+  --color-text-light: #FFFFFF;            /* white */
+
+  /* Colors - Accents */
+  --color-border: #8B4513;                /* brown */
+  --color-success: #5B8B7A;               /* teal */
+  --color-active: #C44436;                /* light red */
+  --color-error: #DC2626;                 /* red TODO verify if it's different enough from the other reds! */
+
+  /* Sizing */
+  --sizing-xs: 0.25rem;    /* 4px */
+  --sizing-sm: 0.5rem;     /* 8px */
+  --sizing-md: 1rem;       /* 16px */
+  --sizing-lg: 1.5rem;     /* 24px */
+  --sizing-xl: 2rem;       /* 32px */
+  --sizing-2xl: 3rem;      /* 48px */
+  --sizing-3xl: 4rem;      /* 64px */
+
+  /* Border */
+  --radius: 9px;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.30);
+  --border-width: 3px;
+
+  /* Typography - Font Families */
+  --font-family-heading: 'Quicksand', Arial, Helvetica, sans-serif;
+  --font-family-body: 'Open Sans', Arial, Helvetica, sans-serif;
+  --font-family-logo: 'Righteous', Arial, Helvetica, sans-serif;
+
+  /* Typography - Font Sizes */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 2rem;      /* 32px */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* ================================
+   Global Styles
+   ================================ */
+html {                        /* root font */
+  font-size: 16px;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--color-text-body);
+  background-color: var(--color-background-main);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  border: none;
+  background: none;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.error-message {
+  color: var(--color-error);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* ================================
+   Layout
+   ================================ */
+.outer-container {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.inner-container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--sizing-md); /* It was large before, in case it needs reverting back */
+}
+
+/* App + Sidebar layout */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-background-main);
+}
+
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: var(--sizing-md);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
 }

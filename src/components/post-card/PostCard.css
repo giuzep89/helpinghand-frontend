@@ -1,1 +1,84 @@
-/* TODO add styling */
+.post-card {
+  position: relative;
+  background-color: var(--color-background-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--sizing-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.help-type-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: var(--sizing-sm);
+}
+
+.help-type-label img {
+  width: 50px;
+  height: 50px;
+}
+
+.help-type-label.gardening { background-color: #90EE90; }
+.help-type-label.taxes { background-color: #DEB887; }
+.help-type-label.company { background-color: #DDA0DD; }
+.help-type-label.plumbing { background-color: #87CEEB; }
+.help-type-label.painting { background-color: #FFB6C1; }
+.help-type-label.moving { background-color: #F0E68C; }
+.help-type-label.it { background-color: #B0C4DE; }
+.help-type-label.bureaucracy { background-color: #D3D3D3; }
+.help-type-label.language { background-color: #FFDAB9; }
+.help-type-label.groceries { background-color: #98FB98; }
+.help-type-label.petsitting { background-color: #FFE4B5; }
+.help-type-label.transport { background-color: #ADD8E6; }
+.help-type-label.repairs { background-color: #DEB887; }
+.help-type-label.house_chores { background-color: #E6E6FA; }
+
+.post-card-badge {
+  position: absolute;
+  bottom: var(--sizing-lg);
+  right: var(--sizing-md);
+  color: var(--color-success);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  transform: rotate(-15deg);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.post-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sizing-sm);
+  margin-bottom: var(--sizing-sm);
+}
+
+.post-card-username {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+}
+
+.post-card-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--sizing-sm);
+}
+
+.post-card-description {
+  margin-bottom: var(--sizing-md);
+  line-height: 1.5;
+  font-size: var(--font-size-sm);
+}
+
+.post-card-actions {
+  display: flex;
+  gap: var(--sizing-sm);
+}

@@ -1,0 +1,30 @@
+.friends-search {
+  max-width: 400px;
+  margin: 0 auto var(--sizing-xl);
+}
+
+.friends-search input {
+  width: 100%;
+  padding: var(--sizing-xs) var(--sizing-sm);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow);
+}
+
+.friends-search input:focus {
+  outline: none;
+  border-color: var(--color-button-primary);
+}
+
+.friends-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sizing-lg);
+}
+
+.friends-list > * {
+  flex: 0 0 280px;
+}
