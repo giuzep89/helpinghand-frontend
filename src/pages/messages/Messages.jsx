@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './Messages.css';
 import ChatPreview from '../../components/chat-preview/ChatPreview.jsx';
 import MessageBubble from '../../components/message-bubble/MessageBubble.jsx';
+import Avatar from '../../components/avatar/Avatar.jsx';
 import testDatabase from '../../constants/testDatabase.json';
 
 function Messages() {
@@ -63,6 +64,11 @@ function Messages() {
         {activeChat ? (
           <>
             <div className="messages-conversation-header">
+              <Avatar
+                src={activeChat.profilePicture}
+                alt={activeChat.otherUserUsername}
+                size="medium"
+              />
               <h2>{activeChat.otherUserUsername}</h2>
             </div>
 

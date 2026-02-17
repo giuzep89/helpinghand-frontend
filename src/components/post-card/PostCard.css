@@ -67,7 +67,7 @@
 
 .post-card-title {
   font-family: var(--font-family-heading);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   color: var(--color-text-primary);
   margin-bottom: var(--sizing-sm);
 }
@@ -75,6 +75,7 @@
 .post-card-description {
   margin-bottom: var(--sizing-md);
   line-height: 1.5;
+  font-size: var(--font-size-sm);
 }
 
 .post-card-actions {

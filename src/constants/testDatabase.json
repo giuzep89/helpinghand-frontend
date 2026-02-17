@@ -150,18 +150,21 @@
     {
       "id": 1,
       "otherUserUsername": "maria_visser",
+      "profilePicture": "https://i.pravatar.cc/150?u=maria",
       "lastMessageContent": "Thanks for the help with the garden!",
       "lastMessageTime": "2025-01-19T16:45:00"
     },
     {
       "id": 2,
       "otherUserUsername": "piet_jansen",
+      "profilePicture": "https://i.pravatar.cc/150?u=piet",
       "lastMessageContent": "See you at the run tomorrow!",
       "lastMessageTime": "2025-01-18T20:30:00"
     },
     {
       "id": 3,
       "otherUserUsername": "anna_smit",
+      "profilePicture": "https://i.pravatar.cc/150?u=anna",
       "lastMessageContent": "I can help with your taxes if you want",
       "lastMessageTime": "2025-01-20T11:15:00"
     }

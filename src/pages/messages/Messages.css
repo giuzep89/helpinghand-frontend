@@ -1,0 +1,115 @@
+/* Messages Page Layout ----------------------------------------------- */
+.messages {
+  display: flex;
+  height: 100%;
+}
+
+/* Chat List Panel ---------------------------------------------------- */
+.messages-chat-list {
+  width: 200px;
+  height: calc(100vh - 2 * var(--sizing-md));
+  margin: var(--sizing-md);
+  margin-left: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background-color: var(--color-background-card);
+  border: var(--border-width) solid var(--color-border);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-chat-list h2 {
+  font-size: var(--font-size-xl);
+  height: 76px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--sizing-md);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+/* Conversation Card -------------------------------------------------- */
+.messages-conversation {
+  flex: 1;
+  height: calc(100vh - 2 * var(--sizing-md));
+  margin: var(--sizing-md);
+  margin-left: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background-color: var(--color-background-card);
+  border: var(--border-width) solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-conversation-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sizing-sm);
+  height: 76px;
+  padding: 0 var(--sizing-sm);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.messages-conversation-header h2 {
+  font-size: var(--font-size-xl);
+}
+
+.messages-conversation-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sizing-md);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Message Input Form ------------------------------------------------- */
+.messages-conversation-input {
+  display: flex;
+  gap: var(--sizing-sm);
+  padding: var(--sizing-md);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.messages-conversation-input input {
+  flex: 1;
+  padding: var(--sizing-sm) var(--sizing-md);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  background-color: white;
+}
+
+.messages-conversation-input input:focus {
+  outline: none;
+  border-color: var(--color-button-secondary);
+}
+
+.messages-conversation-input button {
+  padding: var(--sizing-sm) var(--sizing-md);
+  background-color: var(--color-button-primary-bg);
+  border: var(--border-width) solid var(--color-button-primary);
+  color: var(--color-text-light);
+  border-radius: var(--radius);
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+}
+
+.messages-conversation-input button:hover {
+  opacity: 0.9;
+}
+
+/* Empty State -------------------------------------------------------- */
+.messages-conversation-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.messages-conversation-empty p {
+  color: var(--color-text-body);
+  font-size: var(--font-size-lg);
+}

@@ -1,6 +1,7 @@
 .friend-card {
   display: flex;
   flex-direction: column;
+  flex-basis: 132px;
   background-color: var(--color-background-card);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
@@ -17,7 +18,7 @@
 
 .friend-card-name {
   font-family: var(--font-family-heading);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   color: var(--color-text-primary);
 }
 
@@ -28,6 +29,7 @@
 .friend-card-details p {
   margin-bottom: var(--sizing-xs);
   line-height: 1.5;
+  font-size: var(--font-size-sm);
 }
 
 .friend-card-actions {

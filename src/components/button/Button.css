@@ -1,7 +1,7 @@
 .button {
   padding: var(--sizing-sm) var(--sizing-md);
   border-radius: var(--radius);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: 500;
   cursor: pointer;
   border: var(--border-width) solid transparent;

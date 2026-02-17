@@ -11,7 +11,7 @@ function ChatPreview({ chat, isActive, onClick }) {
         <Avatar
           src={chat.profilePicture}
           alt={chat.otherUserUsername}
-          size="medium"
+          size="small"
         />
       </div>
 

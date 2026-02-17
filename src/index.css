@@ -121,7 +121,7 @@ img {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  padding: var(--sizing-lg);
+  padding: var(--sizing-md); /* It was large before, in case it needs reverting back */
 }
 
 /* App + Sidebar layout */
