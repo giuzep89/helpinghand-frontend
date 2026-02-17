@@ -290,6 +290,16 @@
       "competencies": "Pet sitting, groceries, transport",
       "prizes": ["PETSITTING"],
       "profilePicture": null
+    },
+    {
+      "id": 5,
+      "username": "kees_de_vries",
+      "email": "kees@example.com",
+      "age": 61,
+      "location": "Eindhoven",
+      "competencies": "Taxes, bureaucracy, painting",
+      "prizes": ["TAXES", "BUREAUCRACY"],
+      "profilePicture": "https://i.pravatar.cc/150?u=kees"
     }
   ]
 }

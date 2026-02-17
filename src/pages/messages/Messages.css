@@ -7,6 +7,7 @@
 /* Chat List Panel ---------------------------------------------------- */
 .messages-chat-list {
   width: 200px;
+  flex-shrink: 0;
   height: calc(100vh - 2 * var(--sizing-md));
   margin: var(--sizing-md);
   margin-left: 0;
@@ -20,13 +21,35 @@
   flex-direction: column;
 }
 
-.messages-chat-list h2 {
-  font-size: var(--font-size-xl);
-  height: 76px;
+/* Chat list header with dropdown */
+.messages-chat-list-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  height: 76px;
   padding: 0 var(--sizing-md);
   border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.messages-chat-list-header h2 {
+  font-size: var(--font-size-xl);
+}
+
+.new-chat-select {
+  width: 70px;
+  padding: var(--sizing-xs) var(--sizing-sm);
+  border: var(--border-width) solid var(--color-button-primary);
+  border-radius: var(--radius);
+  background-color: var(--color-button-primary-bg);
+  color: var(--color-text-light);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.new-chat-select:hover {
+  opacity: 0.9;
 }
 
 /* Conversation Card -------------------------------------------------- */
@@ -54,6 +77,11 @@
 
 .messages-conversation-header h2 {
   font-size: var(--font-size-xl);
+}
+
+/* Push delete button to right */
+.messages-conversation-header .button {
+  margin-left: auto;
 }
 
 .messages-conversation-content {
