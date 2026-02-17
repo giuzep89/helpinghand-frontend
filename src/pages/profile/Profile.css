@@ -1,1 +1,80 @@
-/* TODO add styling! */
+.profile-card {
+  max-width: 500px;
+  min-width: 264px;
+  background-color: var(--color-background-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--sizing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-card .avatar {
+  margin-bottom: var(--sizing-md);
+}
+
+.profile-upload-link {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+}
+
+.profile-upload-link:hover {
+  color: var(--color-button-primary);
+}
+
+.profile-card h1 {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--sizing-sm);
+}
+
+.profile-divider {
+  width: 100%;
+  border: none;
+  border-top: 2px solid var(--color-border);
+  margin-bottom: var(--sizing-lg);
+}
+
+/* View Mode - Two Column Layout */
+.profile-details {
+  width: 100%;
+}
+
+.profile-details p {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--sizing-sm) 0;
+  border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+.profile-details p:last-of-type {
+  border-bottom: none;
+}
+
+.profile-details p strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* Edit Mode Form */
+.profile-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sizing-sm);
+}
+
+/* Buttons */
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--sizing-md);
+  margin-top: var(--sizing-lg);
+}
+
+.profile-actions .button {
+  width: 80px;
+}

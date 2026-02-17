@@ -21,7 +21,7 @@ function Friends() {
   }
 
   return (
-    <div className="friends">
+    <div className="friends inner-container">
       <div className="friends-search">
         <input
           type="text"

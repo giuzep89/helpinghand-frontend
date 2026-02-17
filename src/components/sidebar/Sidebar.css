@@ -1,5 +1,6 @@
 .sidebar {
   width: 132px;
+  min-height: 600px;
 
   height: calc(100vh - 2 * var(--sizing-md)); /* trying a different rounded design with these 3 styles, might remove it later */
   margin: var(--sizing-md);

@@ -55,6 +55,7 @@
 /* Conversation Card -------------------------------------------------- */
 .messages-conversation {
   flex: 1;
+  min-width: 232px;
   height: calc(100vh - 2 * var(--sizing-md));
   margin: var(--sizing-md);
   margin-left: 0;
