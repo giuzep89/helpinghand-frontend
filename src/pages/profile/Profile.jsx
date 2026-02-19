@@ -90,6 +90,18 @@ function Profile() {
     const file = e.target.files[0];
     if (!file) return;
 
+    const allowedTypes = ['image/jpeg', 'image/png'];
+    if (!allowedTypes.includes(file.type)) {
+      setError('Only JPEG and PNG images are allowed');
+      return;
+    }
+
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      setError('File size must be less than 5MB');
+      return;
+    }
+
     try {
       setUploading(true);
       setError(null);
@@ -137,7 +149,6 @@ function Profile() {
           alt={user.username}
         />
         <h1>{user.username}</h1>
-        {error && <p className="profile-error">{error}</p>}
         <hr className="profile-divider" />
 
         {isEditing ? (
@@ -190,19 +201,23 @@ function Profile() {
             <p><strong>Age:</strong> {user.age}</p>
             <p><strong>Location:</strong> {user.location}</p>
             <p><strong>Things I can help with:</strong> {user.competencies}</p>
-            <p>
-              <strong>Profile picture:</strong>{' '}
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                accept="image/*"
-                style={{ display: 'none' }}
-              />
-              <a href="#" className="profile-upload-link" onClick={(e) => { e.preventDefault(); handleUploadClick(); }}>
-                {uploading ? 'Uploading...' : 'Upload / update'}
-              </a>
-            </p>
+            <div className="profile-picture-field">
+              <p>
+                <strong>Profile picture*:</strong>{' '}
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  accept="image/jpeg,image/png"
+                  style={{ display: 'none' }}
+                />
+                <a href="#" className="profile-upload-link" onClick={(e) => { e.preventDefault(); handleUploadClick(); }}>
+                  {uploading ? 'Uploading...' : 'Upload / update'}
+                </a>
+              </p>
+              <span className="profile-upload-hint">* JPEG or PNG, max 5MB</span>
+              {error && <span className="profile-error">{error}</span>}
+            </div>
             <div className="profile-actions">
               <Button onClick={handleEdit}>Edit</Button>
               <Button variant="delete" onClick={handleDelete}>Delete</Button>
