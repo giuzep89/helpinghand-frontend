@@ -79,6 +79,13 @@
 }
 
 .post-card-location {
+  margin-bottom: var(--sizing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+  font-style: italic;
+}
+
+.post-card-event-date {
   margin-bottom: var(--sizing-md);
   font-size: var(--font-size-sm);
   color: var(--color-text-body);

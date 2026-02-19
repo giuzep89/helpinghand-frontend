@@ -1,6 +1,7 @@
 import './PostCard.css';
 import Button from '../button/Button.jsx';
 import Avatar from '../avatar/Avatar.jsx';
+import { toDisplayDate } from '../../helpers/formatDateTime.js';
 
 import GardeningIcon from '../../assets/Icons/help requests label icons/gardening.svg';
 import TaxesIcon from '../../assets/Icons/help requests label icons/taxes.svg';
@@ -61,6 +62,9 @@ function PostCard({ post, currentUsername, onContact, onDelete, onHelpFound }) {
       <h3 className="post-card-title">{post.displayTitle}</h3>
       <p className="post-card-description">{post.description}</p>
       {post.location && <p className="post-card-location">Location: {post.location}</p>}
+      {!isHelpRequest && post.eventDate && (
+        <p className="post-card-event-date">Date: {toDisplayDate(post.eventDate)}</p>
+      )}
 
       <div className="post-card-actions">
         {!isAuthor && (

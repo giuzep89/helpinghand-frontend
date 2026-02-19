@@ -128,3 +128,16 @@
   padding: var(--sizing-xl);
   color: var(--color-text-secondary);
 }
+
+.home-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sizing-md);
+  padding: var(--sizing-md) 0;
+}
+
+.home-pagination-info {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+}

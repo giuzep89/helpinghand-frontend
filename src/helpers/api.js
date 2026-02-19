@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken } from "./getToken.js";
+import { toApiDateTime } from "./formatDateTime.js";
 
 const BASE_URL = "http://localhost:8080";
 
@@ -37,7 +38,12 @@ export async function createHelpRequest(description, helpType, location) {
 }
 
 export async function createActivity(description, activityType, location, eventDate) {
-    const response = await axios.post(`${BASE_URL}/posts/activities`, { description, activityType, location, eventDate }, { headers: getToken() });
+    const response = await axios.post(`${BASE_URL}/posts/activities`, {
+        description,
+        activityType,
+        location,
+        eventDate: toApiDateTime(eventDate)
+    }, { headers: getToken() });
     return response.data;
 }
 

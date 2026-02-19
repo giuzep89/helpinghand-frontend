@@ -17,6 +17,8 @@ function Home() {
   const [error, setError] = useState(null);
   const [createLoading, setCreateLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [newPost, setNewPost] = useState({
     postType: 'HELP_REQUEST', // just some default values to display something while choosing
     helpType: 'GARDENING',
@@ -31,8 +33,9 @@ function Home() {
       try {
         setLoading(true);
         setError(null);
-        const postsData = await getAllPosts();
+        const postsData = await getAllPosts(currentPage);
         setPosts(postsData.content || postsData);
+        setTotalPages(postsData.totalPages || 1);
       } catch (error) {
         setError("Failed to load posts");
         console.error("Posts fetch error:", error);
@@ -41,7 +44,7 @@ function Home() {
       }
     }
     fetchPosts();
-  }, []);
+  }, [currentPage]);
 
   async function handleCreatePost(e) {
     e.preventDefault();
@@ -94,6 +97,11 @@ function Home() {
   // Due to time constraints, this resolves as a simple redirect to the messages page for now, and relies on the user to look up the friend to contact
   function handleContact() {
     navigate('/messages');
+  }
+
+  function handlePageChange(newPage) {
+    setCurrentPage(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function handleDelete(postId) {
@@ -220,21 +228,44 @@ function Home() {
           {error && <p className="home-error">{error}</p>}
           {loading ? (
             <p className="home-loading">Loading posts...</p>
-          ) : posts.length === 0 ? (
+          ) : posts.length === 0 && totalPages <= 1 ? (
             <p className="home-empty">No posts yet. Be the first to post!</p>
           ) : (
-            posts.map((post) => {
-              return (
-                <PostCard
-                  key={post.id}
-                  post={post}
-                  currentUsername={user.username}
-                  onContact={handleContact}
-                  onDelete={handleDelete}
-                  onHelpFound={handleHelpFound}
-                />
-              );
-            })
+            <>
+              {posts.map((post) => {
+                return (
+                  <PostCard
+                    key={post.id}
+                    post={post}
+                    currentUsername={user.username}
+                    onContact={handleContact}
+                    onDelete={handleDelete}
+                    onHelpFound={handleHelpFound}
+                  />
+                );
+              })}
+            </>
+          )}
+          {totalPages > 1 && (
+            <div className="home-pagination">
+              <Button
+                variant="secondary"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 0}
+              >
+                Previous
+              </Button>
+              <span className="home-pagination-info">
+                Page {currentPage + 1} of {totalPages}
+              </span>
+              <Button
+                variant="secondary"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage >= totalPages - 1}
+              >
+                Next
+              </Button>
+            </div>
           )}
         </section>
       </div>
