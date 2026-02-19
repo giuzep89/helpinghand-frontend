@@ -191,6 +191,7 @@ function Home() {
               placeholder="Your request here..."
               value={newPost.description}
               onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
+              maxLength={300}
             />
             {formErrors.description && <p className="form-error">{formErrors.description}</p>}
 

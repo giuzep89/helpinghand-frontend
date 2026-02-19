@@ -220,7 +220,7 @@ function Profile() {
             </div>
             <div className="profile-actions">
               <Button onClick={handleEdit}>Edit</Button>
-              <Button variant="delete" onClick={handleDelete}>Delete</Button>
+              <Button variant="delete" onClick={handleDelete} disabled>Delete</Button>
             </div>
           </div>
         )}
