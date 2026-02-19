@@ -2,7 +2,7 @@ import './FriendCard.css';
 import Avatar from '../avatar/Avatar.jsx';
 import Button from '../button/Button.jsx';
 
-function FriendCard({ friend, onMessage, onUnfriend }) {
+function FriendCard({ friend, isFriend, onMessage, onUnfriend, onAddFriend }) {
   return (
     <article className="friend-card">
       <div className="friend-card-header">
@@ -17,8 +17,14 @@ function FriendCard({ friend, onMessage, onUnfriend }) {
       </div>
 
       <div className="friend-card-actions">
-        <Button onClick={() => onMessage(friend)}>Message</Button>
-        <Button variant="delete" onClick={() => onUnfriend(friend)}>Unfriend</Button>
+        {isFriend ? (
+          <>
+            <Button onClick={() => onMessage(friend)}>Message</Button>
+            <Button variant="delete" onClick={() => onUnfriend(friend)}>Unfriend</Button>
+          </>
+        ) : (
+          <Button onClick={() => onAddFriend(friend)}>Add Friend</Button>
+        )}
       </div>
     </article>
   );

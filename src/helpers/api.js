@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken } from "./getToken.js";
+import { toApiDateTime } from "./formatDateTime.js";
 
 const BASE_URL = "http://localhost:8080";
 
@@ -7,11 +8,20 @@ const BASE_URL = "http://localhost:8080";
 
 export async function loginUser(username, password) {
     const response = await axios.post(`${BASE_URL}/auth/login`, { username, password });
-    return response.data;
+    const authHeader = response.headers['authorization'];
+    const jwt = authHeader?.replace('Bearer ', '');
+    return { jwt, ...response.data };
 }
 
-export async function registerUser(email, username, password) {
-    const response = await axios.post(`${BASE_URL}/auth/register`, { email, username, password });
+export async function registerUser(email, username, password, age, location, competencies) {
+    const response = await axios.post(`${BASE_URL}/auth/register`, {
+        email,
+        username,
+        password,
+        age: age ? parseInt(age) : null,
+        location: location || null,
+        competencies: competencies || null
+    });
     return response.data;
 }
 
@@ -28,7 +38,12 @@ export async function createHelpRequest(description, helpType, location) {
 }
 
 export async function createActivity(description, activityType, location, eventDate) {
-    const response = await axios.post(`${BASE_URL}/posts/activities`, { description, activityType, location, eventDate }, { headers: getToken() });
+    const response = await axios.post(`${BASE_URL}/posts/activities`, {
+        description,
+        activityType,
+        location,
+        eventDate: toApiDateTime(eventDate)
+    }, { headers: getToken() });
     return response.data;
 }
 

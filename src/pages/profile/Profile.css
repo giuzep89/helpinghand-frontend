@@ -5,14 +5,14 @@
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: var(--sizing-xl);
+  padding: var(--sizing-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .profile-card .avatar {
-  margin-bottom: var(--sizing-md);
+  /*margin-bottom: var(--sizing-md);*/
 }
 
 .profile-upload-link {
@@ -22,6 +22,19 @@
 
 .profile-upload-link:hover {
   color: var(--color-button-primary);
+}
+
+.profile-picture-field p {
+  border-bottom: none;
+  padding-top: var(--sizing-sm);
+}
+
+.profile-upload-hint {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary, #666);
+  font-style: italic;
+  padding-bottom: var(--sizing-sm);
 }
 
 .profile-card h1 {
@@ -50,8 +63,8 @@
   border-bottom: 1px solid rgba(139, 69, 19, 0.2);
 }
 
-.profile-details p:last-of-type {
-  border-bottom: none;
+.profile-details > p:last-of-type {
+  border-bottom: 1px solid rgba(139, 69, 19, 0.2);
 }
 
 .profile-details p strong {
@@ -72,9 +85,18 @@
   display: flex;
   justify-content: center;
   gap: var(--sizing-md);
-  margin-top: var(--sizing-lg);
+  margin-top: var(--sizing-xs);
 }
 
 .profile-actions .button {
   width: 80px;
 }
+
+.profile-error {
+  display: block;
+  color: var(--color-error, #dc3545);
+  font-size: var(--font-size-sm);
+  margin-top: var(--sizing-xs);
+}
+
+/* Delete account feature on hold - backend endpoint not yet implemented */

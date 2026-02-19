@@ -6,11 +6,16 @@ export function isTokenExpired(){
     if (!token){
         console.log("No token present");
         return true;
-    } else if (token) {
+    }
+
+    try {
         const decodedToken = jwtDecode(token);
         const expiryInMilliseconds = decodedToken.exp * 1000;
         const currentDate = Date.now();
 
         return expiryInMilliseconds < currentDate;
+    } catch (error) {
+        console.error("Invalid token:", error);
+        return true;
     }
 }

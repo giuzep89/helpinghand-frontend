@@ -1,7 +1,7 @@
 .friend-card {
   display: flex;
   flex-direction: column;
-  flex-basis: 132px;
+  min-width: 142px;
   background-color: var(--color-background-card);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
@@ -34,6 +34,6 @@
 
 .friend-card-actions {
   display: flex;
-  gap: var(--sizing-sm);
+  justify-content: space-around;
   margin-top: auto;
 }

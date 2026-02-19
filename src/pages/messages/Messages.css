@@ -55,7 +55,7 @@
 /* Conversation Card -------------------------------------------------- */
 .messages-conversation {
   flex: 1;
-  min-width: 232px;
+  min-width: 432px;
   height: calc(100vh - 2 * var(--sizing-md));
   margin: var(--sizing-md);
   margin-left: 0;
@@ -141,4 +141,18 @@
 .messages-conversation-empty p {
   color: var(--color-text-body);
   font-size: var(--font-size-lg);
+}
+
+.messages-loading,
+.messages-empty {
+  text-align: center;
+  padding: var(--sizing-md);
+  color: var(--color-text-secondary);
+}
+
+.messages-error {
+  color: var(--color-error, #dc3545);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  padding: 0 var(--sizing-md);
 }

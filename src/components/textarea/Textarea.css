@@ -2,5 +2,13 @@
   resize: vertical;
 }
 
+.textarea-counter {
+  display: block;
+  text-align: right;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-body);
+  margin-top: var(--sizing-xs);
+}
+
 /*No need for a specific set of rules, as textarea is
 in all respects identical to input*/

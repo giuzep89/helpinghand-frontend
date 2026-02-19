@@ -1,31 +1,53 @@
-import { createContext, useState } from 'react';
-import testDatabase from '../constants/testDatabase.json';
+import { createContext, useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { isTokenExpired } from '../helpers/isTokenExpired.js';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 
 function AuthContextProvider({ children }) {
   const [auth, setAuth] = useState({
-    isAuth: true,
-    user: testDatabase.currentUser,
-    status: "done"
+    isAuth: false,
+    user: null,
+    status: "loading"
   });
 
-  function login(username) {
-    const foundUser = testDatabase.users.find((user) => {
-      return user.username === username;
-    });
+  useEffect(() => {
+    function checkToken() {
+      const token = localStorage.getItem("token");
 
-    if (foundUser) {
-      setAuth({
-        isAuth: true,
-        user: foundUser,
-        status: "done"
-      });
+      if (token && !isTokenExpired()) {
+        const decodedToken = jwtDecode(token);
+        setAuth({
+          isAuth: true,
+          user: {
+            username: decodedToken.sub,
+          },
+          status: "done"
+        });
+      } else {
+        localStorage.removeItem("token");
+        setAuth({
+          isAuth: false,
+          user: null,
+          status: "done"
+        });
+      }
     }
+
+    checkToken();
+  }, []);
+
+  function login(username) {
+    setAuth({
+      isAuth: true,
+      user: { username },
+      status: "done"
+    });
   }
 
   function logout() {
+    localStorage.removeItem("token");
     setAuth({
       isAuth: false,
       user: null,

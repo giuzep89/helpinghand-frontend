@@ -73,3 +73,10 @@
   margin-bottom: var(--sizing-sm);
   text-align: center;
 }
+
+.auth-error {
+  color: var(--color-error, #dc3545);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  margin: var(--sizing-xs) 0;
+}

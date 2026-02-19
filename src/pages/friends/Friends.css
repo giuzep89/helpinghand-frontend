@@ -28,3 +28,25 @@
 .friends-list > * {
   flex: 0 0 280px;
 }
+
+.friends-search-loading {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--sizing-xs);
+}
+
+.friends-error {
+  color: var(--color-error, #dc3545);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  margin-bottom: var(--sizing-md);
+}
+
+.friends-loading,
+.friends-empty {
+  width: 100%;
+  text-align: center;
+  padding: var(--sizing-xl);
+  color: var(--color-text-secondary);
+}

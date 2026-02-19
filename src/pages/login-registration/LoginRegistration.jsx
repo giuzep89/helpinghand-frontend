@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
+import { loginUser, registerUser } from '../../helpers/api.js';
 import Input from '../../components/input/Input.jsx';
 import Textarea from '../../components/textarea/Textarea.jsx';
 import Button from '../../components/button/Button.jsx';
@@ -11,6 +12,11 @@ import './LoginRegistration.css';
 function LoginRegistration() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState(null);
+  const [signupLoading, setSignupLoading] = useState(false);
+  const [signupError, setSignupError] = useState(null);
 
   const {
     register: registerLogin,
@@ -24,14 +30,37 @@ function LoginRegistration() {
     formState: { errors: signupErrors },
   } = useForm();
 
-  function onLoginSubmit(data) {
-    login(data.username);
-    navigate("/");
+  async function onLoginSubmit(data) {
+    try {
+      setLoginLoading(true);
+      setLoginError(null);
+      const response = await loginUser(data.username, data.password);
+      localStorage.setItem('token', response.jwt);
+      login(data.username);
+      navigate("/");
+    } catch (error) {
+      setLoginError("Invalid username or password");
+      console.error("Login error:", error);
+    } finally {
+      setLoginLoading(false);
+    }
   }
 
-  function onSignupSubmit() {
-    // TODO: implement real registration logic
-    navigate("/");
+  async function onSignupSubmit(data) {
+    try {
+      setSignupLoading(true);
+      setSignupError(null);
+      await registerUser(data.email, data.username, data.password, data.age, data.location, data.competencies);
+      const response = await loginUser(data.username, data.password);
+      localStorage.setItem('token', response.jwt);
+      login(data.username);
+      navigate("/");
+    } catch (error) {
+      setSignupError("Registration failed. Username or email may already be taken.");
+      console.error("Registration error:", error);
+    } finally {
+      setSignupLoading(false);
+    }
   }
 
   return (
@@ -63,7 +92,10 @@ function LoginRegistration() {
               })}
               error={loginErrors.password}
             />
-            <Button type="submit" variant="secondary">Login</Button>
+            {loginError && <p className="auth-error">{loginError}</p>}
+            <Button type="submit" variant="secondary" disabled={loginLoading}>
+              {loginLoading ? 'Logging in...' : 'Login'}
+            </Button>
           </form>
 
           <hr className="auth-divider" />
@@ -71,7 +103,7 @@ function LoginRegistration() {
           <h2>New with us? Create an account!</h2>
           <form onSubmit={handleSignupSubmit(onSignupSubmit)}>
             <Input
-              label="Username"
+              label="Username *"
               type="text"
               register={registerSignup("username", {
                 required: "Username is required",
@@ -80,7 +112,7 @@ function LoginRegistration() {
               error={signupErrors.username}
             />
             <Input
-              label="Email"
+              label="Email *"
               type="email"
               register={registerSignup("email", {
                 required: "Email is required",
@@ -88,7 +120,7 @@ function LoginRegistration() {
               error={signupErrors.email}
             />
             <Input
-              label="Password"
+              label="Password *"
               type="password"
               register={registerSignup("password", {
                 required: "Password is required",
@@ -97,7 +129,7 @@ function LoginRegistration() {
               error={signupErrors.password}
             />
             <Input
-              label="Age"
+              label="Age *"
               type="number"
               register={registerSignup("age", {
                 required: "Age is required",
@@ -118,7 +150,10 @@ function LoginRegistration() {
               error={signupErrors.competencies}
               rows={2}
             />
-            <Button type="submit" variant="secondary">Register</Button>
+            {signupError && <p className="auth-error">{signupError}</p>}
+            <Button type="submit" variant="secondary" disabled={signupLoading}>
+              {signupLoading ? 'Registering...' : 'Register'}
+            </Button>
           </form>
         </div>
       </div>
