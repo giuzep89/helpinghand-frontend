@@ -53,7 +53,7 @@ function Home() {
     if (!newPost.description.trim()) {
       errors.description = "Description is required";
     }
-    if (!newPost.location.trim()) {
+    if (newPost.postType === 'ACTIVITY' && !newPost.location.trim()) {
       errors.location = "Location is required";
     }
     if (newPost.postType === 'ACTIVITY' && !newPost.eventDate) {
@@ -195,7 +195,7 @@ function Home() {
             {formErrors.description && <p className="form-error">{formErrors.description}</p>}
 
             <div className="post-location-input">
-              <label>Location: *</label>
+              <label>Location:{newPost.postType === 'ACTIVITY' && ' *'}</label>
               <input
                 type="text"
                 placeholder="Enter location..."

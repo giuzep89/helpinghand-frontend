@@ -2,6 +2,7 @@ import './PostCard.css';
 import Button from '../button/Button.jsx';
 import Avatar from '../avatar/Avatar.jsx';
 import { toDisplayDate } from '../../helpers/formatDateTime.js';
+import { getProfilePictureUrl } from '../../helpers/api.js';
 
 import GardeningIcon from '../../assets/Icons/help requests label icons/gardening.svg';
 import TaxesIcon from '../../assets/Icons/help requests label icons/taxes.svg';
@@ -39,8 +40,7 @@ function PostCard({ post, currentUsername, onContact, onDelete, onHelpFound }) {
   const isAuthor = post.authorUsername === currentUsername;
   const isHelpRequest = post.postType === 'HELP_REQUEST';
 
-  // TODO replace with real profile picture URL from API
-  const authorPicture = `https://i.pravatar.cc/150?u=${post.authorUsername}`;
+  const authorPicture = getProfilePictureUrl(post.authorUsername);
 
   return (
     <article className="post-card">
