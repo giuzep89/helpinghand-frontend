@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import './Avatar.css';
 import ProfilePicPlaceholder from '../../assets/Icons/ProfilePic-placeholder.svg';
 
 function Avatar({ src, alt = "", size = "medium", className }) {
-  if (!src) {
+  const [hasError, setHasError] = useState(false);
+
+  if (!src || hasError) {
     return (
       <img
         src={ProfilePicPlaceholder}
@@ -17,6 +20,7 @@ function Avatar({ src, alt = "", size = "medium", className }) {
       src={src}
       alt={alt}
       className={`avatar avatar-${size} ${className || ""}`}
+      onError={() => setHasError(true)}
     />
   );
 }

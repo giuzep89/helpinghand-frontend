@@ -1,66 +1,126 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
+import { getAllPosts, createHelpRequest, createActivity, deletePost, markHelpFound } from '../../helpers/api.js';
 import PostCard from '../../components/post-card/PostCard.jsx';
 import Textarea from '../../components/textarea/Textarea.jsx';
 import Button from '../../components/button/Button.jsx';
-import { generateTitle } from '../../helpers/generateTitle.js'; // TODO API: remove, API generates displayTitle
-import testDatabase from '../../constants/testDatabase.json'; // TODO API: remove, fetch posts in useEffect
 import helpTypes from '../../constants/helpTypes.json';
 import activityTypes from '../../constants/activityTypes.json';
 import './Home.css';
 
 function Home() {
   const { user } = useContext(AuthContext);
-  // TODO API: replace with useEffect fetching GET /posts
-  const [posts, setPosts] = useState(testDatabase.posts);
+  const navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [createLoading, setCreateLoading] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
   const [newPost, setNewPost] = useState({
-    postType: 'HELP_REQUEST',
+    postType: 'HELP_REQUEST', // just some default values to display something while choosing
     helpType: 'GARDENING',
     activityType: 'SPORTS',
-    description: ''
+    description: '',
+    location: '',
+    eventDate: ''
   });
 
-  // TODO API: POST to /posts/help-requests or /posts/activities
-  function handleCreatePost(e) {
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        setLoading(true);
+        setError(null);
+        const postsData = await getAllPosts();
+        setPosts(postsData.content || postsData);
+      } catch (error) {
+        setError("Failed to load posts");
+        console.error("Posts fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPosts();
+  }, []);
+
+  async function handleCreatePost(e) {
     e.preventDefault();
 
-    const post = {
-      id: Math.floor(Math.random() * 100000),
-      displayTitle: generateTitle(newPost.postType, newPost.helpType, newPost.activityType),
-      description: newPost.description,
-      location: user.location,
-      authorUsername: user.username,
-      createdAt: new Date().toISOString(),
-      postType: newPost.postType,
-      ...(newPost.postType === 'HELP_REQUEST'
-        ? { helpType: newPost.helpType, helpFound: false }
-        : { activityType: newPost.activityType, currentParticipants: 1 })
-    };
+    const errors = {};
+    if (!newPost.description.trim()) {
+      errors.description = "Description is required";
+    }
+    if (!newPost.location.trim()) {
+      errors.location = "Location is required";
+    }
+    if (newPost.postType === 'ACTIVITY' && !newPost.eventDate) {
+      errors.eventDate = "Event date is required";
+    }
 
-    setPosts([post, ...posts]);
-    setNewPost({ ...newPost, description: '' });
-  }
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
 
-  function handleContact(post) {
-    // TODO: navigate to messages or open chat with post author
-    console.log('Contact author of:', post.displayTitle);
-  }
-
-  // TODO API: DELETE /posts/{id}
-  function handleDelete(postId) {
-    setPosts(posts.filter((post) => {
-      return post.id !== postId;
-    }));
-  }
-
-  // TODO API: PATCH /posts/help-requests/{id}/help-found
-  function handleHelpFound(postId) {
-    setPosts(posts.map((post) => {
-      if (post.id === postId) {
-        return { ...post, helpFound: true };
+    try {
+      setCreateLoading(true);
+      setError(null);
+      setFormErrors({});
+      let createdPost;
+      if (newPost.postType === 'HELP_REQUEST') {
+        createdPost = await createHelpRequest(
+          newPost.description,
+          newPost.helpType,
+          newPost.location
+        );
+      } else {
+        createdPost = await createActivity(
+          newPost.description,
+          newPost.activityType,
+          newPost.location,
+          newPost.eventDate
+        );
       }
-      return post;
-    }));
+      setPosts([createdPost, ...posts]);
+      setNewPost({ ...newPost, description: '', location: '', eventDate: '' });
+    } catch (error) {
+      setError("Failed to create post");
+      console.error("Create post error:", error);
+    } finally {
+      setCreateLoading(false);
+    }
+  }
+
+  // Due to time constraints, this resolves as a simple redirect to the messages page for now, and relies on the user to look up the friend to contact
+  function handleContact() {
+    navigate('/messages');
+  }
+
+  async function handleDelete(postId) {
+    try {
+      setError(null);
+      await deletePost(postId);
+      setPosts(posts.filter((post) => post.id !== postId));
+    } catch (error) {
+      setError("Failed to delete post");
+      console.error("Delete post error:", error);
+    }
+  }
+
+  async function handleHelpFound(postId) {
+    try {
+      setError(null);
+      await markHelpFound(postId, []);
+      setPosts(posts.map((post) => {
+        if (post.id === postId) {
+          return { ...post, helpFound: true };
+        }
+        return post;
+      }));
+    } catch (error) {
+      setError("Failed to mark help found");
+      console.error("Mark help found error:", error);
+    }
   }
 
   return (
@@ -119,28 +179,63 @@ function Home() {
             </div>
 
             <Textarea
-              label="Describe your request:"
-              placeholder="You request here..."
+              label="Describe your request: *"
+              placeholder="Your request here..."
               value={newPost.description}
               onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
             />
+            {formErrors.description && <p className="form-error">{formErrors.description}</p>}
 
-            <Button type="submit">Post it!</Button>
+            <div className="post-location-input">
+              <label>Location: *</label>
+              <input
+                type="text"
+                placeholder="Enter location..."
+                value={newPost.location}
+                onChange={(e) => setNewPost({ ...newPost, location: e.target.value })}
+              />
+            </div>
+            {formErrors.location && <p className="form-error">{formErrors.location}</p>}
+
+            {newPost.postType === 'ACTIVITY' && (
+              <>
+                <div className="post-date-input">
+                  <label>Event date: *</label>
+                  <input
+                    type="date"
+                    value={newPost.eventDate}
+                    onChange={(e) => setNewPost({ ...newPost, eventDate: e.target.value })}
+                  />
+                </div>
+                {formErrors.eventDate && <p className="form-error">{formErrors.eventDate}</p>}
+              </>
+            )}
+
+            <Button type="submit" disabled={createLoading}>
+              {createLoading ? 'Posting...' : 'Post it!'}
+            </Button>
           </form>
         </section>
         <section className="home-feed">
-          {posts.map((post) => {
-            return (
-              <PostCard
-                key={post.id}
-                post={post}
-                currentUsername={user.username}
-                onContact={handleContact}
-                onDelete={handleDelete}
-                onHelpFound={handleHelpFound}
-              />
-            );
-          })}
+          {error && <p className="home-error">{error}</p>}
+          {loading ? (
+            <p className="home-loading">Loading posts...</p>
+          ) : posts.length === 0 ? (
+            <p className="home-empty">No posts yet. Be the first to post!</p>
+          ) : (
+            posts.map((post) => {
+              return (
+                <PostCard
+                  key={post.id}
+                  post={post}
+                  currentUsername={user.username}
+                  onContact={handleContact}
+                  onDelete={handleDelete}
+                  onHelpFound={handleHelpFound}
+                />
+              );
+            })
+          )}
         </section>
       </div>
     </main>

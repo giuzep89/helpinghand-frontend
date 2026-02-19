@@ -73,9 +73,16 @@
 }
 
 .post-card-description {
-  margin-bottom: var(--sizing-md);
+  margin-bottom: var(--sizing-sm);
   line-height: 1.5;
   font-size: var(--font-size-sm);
+}
+
+.post-card-location {
+  margin-bottom: var(--sizing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+  font-style: italic;
 }
 
 .post-card-actions {

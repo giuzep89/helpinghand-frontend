@@ -1,74 +1,110 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext.jsx';
+import { getAllChats, getChatMessages, sendMessage, createChat, getUserFriends } from '../../helpers/api.js';
 import './Messages.css';
 import ChatPreview from '../../components/chat-preview/ChatPreview.jsx';
 import MessageBubble from '../../components/message-bubble/MessageBubble.jsx';
 import Avatar from '../../components/avatar/Avatar.jsx';
 import Button from '../../components/button/Button.jsx';
-import testDatabase from '../../constants/testDatabase.json';
 
 function Messages() {
-  const [chats, setChats] = useState(testDatabase.chats);
-  const [allMessages, setAllMessages] = useState(testDatabase.messages);
+  const { user } = useContext(AuthContext);
+  const [chats, setChats] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [currentMessages, setCurrentMessages] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
   const [newMessage, setNewMessage] = useState('');
+  const [chatsLoading, setChatsLoading] = useState(true);
+  const [messagesLoading, setMessagesLoading] = useState(false);
+  const [sendingMessage, setSendingMessage] = useState(false);
+  const [error, setError] = useState(null);
 
-  const currentMessages = allMessages[activeChat?.id] ?? []; // if all messages is NULL, return empty array
+  useEffect(() => {
+    async function fetchChatsAndFriends() {
+      try {
+        setChatsLoading(true);
+        setError(null);
+        const [chatsData, friendsData] = await Promise.all([
+          getAllChats(),
+          getUserFriends(user.username)
+        ]);
+        setChats(chatsData);
+        setFriends(friendsData);
+      } catch (error) {
+        setError("Failed to load chats");
+        console.error("Chats fetch error:", error);
+      } finally {
+        setChatsLoading(false);
+      }
+    }
+    if (user?.username) {
+      fetchChatsAndFriends();
+    }
+  }, [user?.username]);
 
-  const availableFriends = testDatabase.friends.filter((friend) => {
+  const availableFriends = friends.filter((friend) => {
     return !chats.some((chat) => chat.otherUserUsername === friend.username);
   });
 
-  function handleChatClick(chat) {
+  async function handleChatClick(chat) {
     setActiveChat(chat);
+    try {
+      setMessagesLoading(true);
+      setError(null);
+      const messages = await getChatMessages(chat.id);
+      setCurrentMessages(messages);
+    } catch (error) {
+      setError("Failed to load messages");
+      console.error("Messages fetch error:", error);
+    } finally {
+      setMessagesLoading(false);
+    }
   }
 
-  function handleNewChat(e) {
-    const friend = testDatabase.friends.find((f) => f.username === e.target.value);
-    const newChat = {
-      id: Date.now(),
-      otherUserUsername: friend.username,
-      profilePicture: friend.profilePicture,
-      lastMessageContent: "",
-      lastMessageTime: new Date().toISOString()
-    };
-    setChats([newChat, ...chats]);
-    setAllMessages({ ...allMessages, [newChat.id]: [] });
-    setActiveChat(newChat);
+  async function handleNewChat(e) {
+    const selectedUsername = e.target.value;
+    const friend = friends.find((f) => f.username === selectedUsername);
+    if (!friend) return;
+
+    try {
+      setError(null);
+      const newChat = await createChat(friend.id);
+      setChats([newChat, ...chats]);
+      setActiveChat(newChat);
+      setCurrentMessages([]);
+    } catch (error) {
+      setError("Failed to create chat");
+      console.error("Create chat error:", error);
+    }
   }
 
   function handleDeleteChat() {
     const updatedChats = chats.filter((chat) => chat.id !== activeChat.id);
-    const { [activeChat.id]: _removed, ...remainingMessages } = allMessages;
     setChats(updatedChats);
-    setAllMessages(remainingMessages);
     setActiveChat(null);
+    setCurrentMessages([]);
   }
 
-  function handleSendMessage(event) {
+  async function handleSendMessage(event) {
     event.preventDefault();
 
     const isMessageEmpty = newMessage.trim() === '';
-    if (isMessageEmpty) {
+    if (isMessageEmpty || !activeChat) {
       return;
     }
 
-    const chatMessages = allMessages[activeChat?.id] ?? [];
-    const message = {
-      id: Date.now(),
-      senderUsername: testDatabase.currentUser.username,
-      content: newMessage,
-      timestamp: new Date().toISOString(),
-      isMe: true
-    };
-
-    setAllMessages((prevMessages) => {
-      return {
-        ...prevMessages,
-        [activeChat.id]: [...chatMessages, message]
-      };
-    });
-
-    setNewMessage('');
+    try {
+      setSendingMessage(true);
+      setError(null);
+      const sentMessage = await sendMessage(activeChat.id, newMessage);
+      setCurrentMessages((prevMessages) => [...prevMessages, sentMessage]);
+      setNewMessage('');
+    } catch (error) {
+      setError("Failed to send message");
+      console.error("Send message error:", error);
+    } finally {
+      setSendingMessage(false);
+    }
   }
 
   return (
@@ -89,16 +125,22 @@ function Messages() {
             ))}
           </select>
         </div>
-        {chats.map((chat) => {
-          return (
-            <ChatPreview
-              key={chat.id}
-              chat={chat}
-              isActive={activeChat?.id === chat.id}
-              onClick={handleChatClick}
-            />
-          );
-        })}
+        {chatsLoading ? (
+          <p className="messages-loading">Loading chats...</p>
+        ) : chats.length === 0 ? (
+          <p className="messages-empty">No chats yet</p>
+        ) : (
+          chats.map((chat) => {
+            return (
+              <ChatPreview
+                key={chat.id}
+                chat={chat}
+                isActive={activeChat?.id === chat.id}
+                onClick={handleChatClick}
+              />
+            );
+          })
+        )}
       </div>
 
       <div className="messages-conversation">
@@ -115,24 +157,32 @@ function Messages() {
             </div>
 
             <div className="messages-conversation-content">
-              {currentMessages.map((message) => {
-                return (
-                  <MessageBubble
-                    key={message.id}
-                    message={message}
-                  />
-                );
-              })}
+              {messagesLoading ? (
+                <p className="messages-loading">Loading messages...</p>
+              ) : (
+                currentMessages.map((message) => {
+                  return (
+                    <MessageBubble
+                      key={message.id}
+                      message={{ ...message, isMe: message.senderUsername === user.username }}
+                    />
+                  );
+                })
+              )}
             </div>
 
+            {error && <p className="messages-error">{error}</p>}
             <form className="messages-conversation-input" onSubmit={handleSendMessage}>
               <input
                 type="text"
                 placeholder="Type a message..."
                 value={newMessage}
                 onChange={(event) => setNewMessage(event.target.value)}
+                disabled={sendingMessage}
               />
-              <button type="submit">Send</button>
+              <button type="submit" disabled={sendingMessage}>
+                {sendingMessage ? 'Sending...' : 'Send'}
+              </button>
             </form>
           </>
 

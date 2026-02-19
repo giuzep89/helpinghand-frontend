@@ -60,6 +60,7 @@ function PostCard({ post, currentUsername, onContact, onDelete, onHelpFound }) {
 
       <h3 className="post-card-title">{post.displayTitle}</h3>
       <p className="post-card-description">{post.description}</p>
+      {post.location && <p className="post-card-location">Location: {post.location}</p>}
 
       <div className="post-card-actions">
         {!isAuthor && (
