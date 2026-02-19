@@ -78,6 +78,8 @@ function Messages() {
     }
   }
 
+  // Note: This only removes the chat from local state, not from the backend.
+  // The backend does not have a DELETE endpoint for chats yet.
   function handleDeleteChat() {
     const updatedChats = chats.filter((chat) => chat.id !== activeChat.id);
     setChats(updatedChats);
@@ -118,11 +120,17 @@ function Messages() {
             onChange={handleNewChat}
           >
             <option value="" disabled>New</option>
-            {availableFriends.map((friend) => (
-              <option key={friend.id} value={friend.username}>
-                {friend.username}
-              </option>
-            ))}
+            {friends.length === 0 ? (
+              <option disabled>You have no friends yet!</option>
+            ) : availableFriends.length === 0 ? (
+              <option disabled>You already have chats with all friends</option>
+            ) : (
+              availableFriends.map((friend) => (
+                <option key={friend.id} value={friend.username}>
+                  {friend.username}
+                </option>
+              ))
+            )}
           </select>
         </div>
         {chatsLoading ? (
