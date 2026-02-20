@@ -147,7 +147,7 @@
 .messages-empty {
   text-align: center;
   padding: var(--sizing-md);
-  color: var(--color-text-secondary);
+  color: var(--color-text-body);
 }
 
 .messages-error {

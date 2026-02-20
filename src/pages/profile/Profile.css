@@ -1,6 +1,6 @@
 .profile-card {
-  max-width: 500px;
-  min-width: 264px;
+  /*max-width: 500px;*/
+  min-width: 420px;
   background-color: var(--color-background-card);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
@@ -32,7 +32,7 @@
 .profile-upload-hint {
   display: block;
   font-size: var(--font-size-xs);
-  color: var(--color-text-secondary, #666);
+  color: var(--color-text-body);
   font-style: italic;
   padding-bottom: var(--sizing-sm);
 }

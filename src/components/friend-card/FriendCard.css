@@ -37,3 +37,7 @@
   justify-content: space-around;
   margin-top: auto;
 }
+
+.friend-card-actions button {
+  padding: var(--sizing-sm);
+}

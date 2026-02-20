@@ -32,7 +32,7 @@
 
 .chat-preview-name {
   font-family: var(--font-family-heading);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
   color: var(--color-text-primary);
   margin-bottom: var(--sizing-xs);
 }

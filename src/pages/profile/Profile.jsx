@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import { getUserProfile, updateUserProfile, uploadProfilePicture, getProfilePictureUrl } from '../../helpers/api.js';
+import { formatPrizes } from '../../helpers/formatPrizes.js';
 import './Profile.css';
 import Avatar from '../../components/avatar/Avatar.jsx';
 import Button from '../../components/button/Button.jsx';
@@ -201,6 +202,9 @@ function Profile() {
             <p><strong>Age:</strong> {user.age}</p>
             <p><strong>Location:</strong> {user.location}</p>
             <p><strong>Things I can help with:</strong> {user.competencies}</p>
+            <p><strong>Prizes won:</strong> {user.prizes && user.prizes.length > 0
+              ? formatPrizes(user.prizes)
+              : 'No prizes yet. Go do some good!'}</p>
             <div className="profile-picture-field">
               <p>
                 <strong>Profile picture*:</strong>{' '}

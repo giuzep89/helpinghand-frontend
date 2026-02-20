@@ -126,7 +126,7 @@
 .home-empty {
   text-align: center;
   padding: var(--sizing-xl);
-  color: var(--color-text-secondary);
+  color: var(--color-text-body);
 }
 
 .home-pagination {
@@ -135,6 +135,10 @@
   align-items: center;
   gap: var(--sizing-md);
   padding: var(--sizing-md) 0;
+}
+
+.home-pagination .button {
+  width: 100px;
 }
 
 .home-pagination-info {
