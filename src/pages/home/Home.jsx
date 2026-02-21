@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
-import { getAllPosts, createHelpRequest, createActivity, deletePost, markHelpFound } from '../../helpers/api.js';
+import { getAllPosts, createHelpRequest, createActivity, deletePost, markHelpFound, getUserFriends } from '../../helpers/api.js';
 import PostCard from '../../components/post-card/PostCard.jsx';
 import Textarea from '../../components/textarea/Textarea.jsx';
 import Button from '../../components/button/Button.jsx';
@@ -27,6 +27,7 @@ function Home() {
     location: '',
     eventDate: ''
   });
+  const [friends, setFriends] = useState([]);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -45,6 +46,20 @@ function Home() {
     }
     fetchPosts();
   }, [currentPage]);
+
+  useEffect(() => {
+    async function fetchFriends() {
+      try {
+        const friendsData = await getUserFriends(user.username);
+        setFriends(friendsData);
+      } catch (error) {
+        console.error("Friends fetch error:", error);
+      }
+    }
+    if (user?.username) {
+      fetchFriends();
+    }
+  }, [user?.username]);
 
   async function handleCreatePost(e) {
     e.preventDefault();
@@ -115,10 +130,10 @@ function Home() {
     }
   }
 
-  async function handleHelpFound(postId) {
+  async function handleHelpFound(postId, helperIds = []) {
     try {
       setError(null);
-      await markHelpFound(postId, []);
+      await markHelpFound(postId, helperIds);
       setPosts(posts.map((post) => {
         if (post.id === postId) {
           return { ...post, helpFound: true };
@@ -239,6 +254,7 @@ function Home() {
                     key={post.id}
                     post={post}
                     currentUsername={user.username}
+                    friends={friends}
                     onContact={handleContact}
                     onDelete={handleDelete}
                     onHelpFound={handleHelpFound}

@@ -1,6 +1,7 @@
 import './FriendCard.css';
 import Avatar from '../avatar/Avatar.jsx';
 import Button from '../button/Button.jsx';
+import { formatPrizes } from '../../helpers/formatPrizes.js';
 
 function FriendCard({ friend, isFriend, onMessage, onUnfriend, onAddFriend }) {
   return (
@@ -14,6 +15,7 @@ function FriendCard({ friend, isFriend, onMessage, onUnfriend, onAddFriend }) {
         <p><strong>Age:</strong> {friend.age}</p>
         <p><strong>Location:</strong> {friend.location}</p>
         <p><strong>Things I can help with:</strong> {friend.competencies}</p>
+        <p><strong>Prizes:</strong> {friend.prizes?.length > 0 ? formatPrizes(friend.prizes) : 'None yet'}</p>
       </div>
 
       <div className="friend-card-actions">
