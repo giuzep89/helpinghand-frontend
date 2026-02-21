@@ -2,12 +2,13 @@ import './FriendCard.css';
 import Avatar from '../avatar/Avatar.jsx';
 import Button from '../button/Button.jsx';
 import { formatPrizes } from '../../helpers/formatPrizes.js';
+import { getProfilePictureUrl } from '../../helpers/api.js';
 
 function FriendCard({ friend, isFriend, onMessage, onUnfriend, onAddFriend }) {
   return (
     <article className="friend-card">
       <div className="friend-card-header">
-        <Avatar src={friend.profilePicture} alt={friend.username} size="medium" />
+        <Avatar src={getProfilePictureUrl(friend.username)} alt={friend.username} size="medium" />
         <h3 className="friend-card-name">{friend.username}</h3>
       </div>
 
