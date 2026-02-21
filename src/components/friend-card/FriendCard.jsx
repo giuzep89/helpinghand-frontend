@@ -1,12 +1,14 @@
 import './FriendCard.css';
 import Avatar from '../avatar/Avatar.jsx';
 import Button from '../button/Button.jsx';
+import { formatPrizes } from '../../helpers/formatPrizes.js';
+import { getProfilePictureUrl } from '../../helpers/api.js';
 
 function FriendCard({ friend, isFriend, onMessage, onUnfriend, onAddFriend }) {
   return (
     <article className="friend-card">
       <div className="friend-card-header">
-        <Avatar src={friend.profilePicture} alt={friend.username} size="medium" />
+        <Avatar src={getProfilePictureUrl(friend.username)} alt={friend.username} size="medium" />
         <h3 className="friend-card-name">{friend.username}</h3>
       </div>
 
@@ -14,6 +16,7 @@ function FriendCard({ friend, isFriend, onMessage, onUnfriend, onAddFriend }) {
         <p><strong>Age:</strong> {friend.age}</p>
         <p><strong>Location:</strong> {friend.location}</p>
         <p><strong>Things I can help with:</strong> {friend.competencies}</p>
+        <p><strong>Prizes:</strong> {friend.prizes?.length > 0 ? formatPrizes(friend.prizes) : 'None yet'}</p>
       </div>
 
       <div className="friend-card-actions">
