@@ -86,10 +86,24 @@
 }
 
 .post-card-event-date {
-  margin-bottom: var(--sizing-md);
+  margin-bottom: var(--sizing-sm);
   font-size: var(--font-size-sm);
   color: var(--color-text-body);
   font-style: italic;
+}
+
+.post-card-participants {
+  margin-bottom: var(--sizing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+}
+
+.post-card-posted {
+  margin-bottom: var(--sizing-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-body);
+  font-style: italic;
+  text-align: right;
 }
 
 .post-card-actions {
@@ -100,7 +114,6 @@
 .prize-list {
   margin-top: var(--sizing-md);
   padding: var(--sizing-md);
-  background-color: var(--color-background);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
 }

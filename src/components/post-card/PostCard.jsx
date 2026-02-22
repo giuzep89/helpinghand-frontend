@@ -89,6 +89,10 @@ function PostCard({ post, currentUsername, friends = [], onContact, onDelete, on
       {!isHelpRequest && post.eventDate && (
         <p className="post-card-event-date">Date: {toDisplayDate(post.eventDate)}</p>
       )}
+      {!isHelpRequest && (
+        <p className="post-card-participants">Participants: {post.currentParticipants || 0}</p>
+      )}
+      <p className="post-card-posted">Posted: {toDisplayDate(post.createdAt)}</p>
 
       <div className="post-card-actions">
         {!isAuthor && (

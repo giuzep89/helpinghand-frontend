@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext.jsx';
-import { getAllChats, getChatMessages, sendMessage, createChat, getUserFriends } from '../../helpers/api.js';
+import { getAllChats, getChatMessages, sendMessage, createChat, getUserFriends, getProfilePictureUrl } from '../../helpers/api.js';
 import './Messages.css';
 import ChatPreview from '../../components/chat-preview/ChatPreview.jsx';
 import MessageBubble from '../../components/message-bubble/MessageBubble.jsx';
@@ -156,7 +156,7 @@ function Messages() {
           <>
             <div className="messages-conversation-header">
               <Avatar
-                src={activeChat.profilePicture}
+                src={getProfilePictureUrl(activeChat.otherUserUsername)}
                 alt={activeChat.otherUserUsername}
                 size="medium"
               />
