@@ -12,7 +12,7 @@
 .friend-card-header {
   display: flex;
   align-items: center;
-  gap: var(--sizing-md);
+  gap: var(--sizing-sm);
   margin-bottom: var(--sizing-md);
 }
 

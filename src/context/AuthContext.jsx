@@ -22,6 +22,7 @@ function AuthContextProvider({ children }) {
           isAuth: true,
           user: {
             username: decodedToken.sub,
+            isAdmin: decodedToken.roles?.includes('ROLE_ADMIN') || false
           },
           status: "done"
         });
@@ -39,9 +40,14 @@ function AuthContextProvider({ children }) {
   }, []);
 
   function login(username) {
+    const token = localStorage.getItem("token");
+    const decodedToken = token ? jwtDecode(token) : null;
     setAuth({
       isAuth: true,
-      user: { username },
+      user: {
+        username,
+        isAdmin: decodedToken?.roles?.includes('ROLE_ADMIN') || false
+      },
       status: "done"
     });
   }
