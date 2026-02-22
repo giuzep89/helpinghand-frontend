@@ -19,6 +19,7 @@
   --color-background-main: #F5DEB3;       /* beige */
   --color-background-sidebar: #083529;    /* dark green */
   --color-background-card: #F5D29F;       /* tan */
+  --color-background-input: #FFFFFF;
 
   /* Colors - Buttons */
   --color-button-primary: #8B3A3A;        /* burgundy - border/text */
@@ -96,6 +97,17 @@ button {
   border: none;
   background: none;
   cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  padding: var(--sizing-xs) var(--sizing-sm);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  background-color: var(--color-background-input);
 }
 
 img {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import { getAllChats, getChatMessages, sendMessage, createChat, getUserFriends, getProfilePictureUrl } from '../../helpers/api.js';
 import './Messages.css';
@@ -9,6 +10,7 @@ import Button from '../../components/button/Button.jsx';
 
 function Messages() {
   const { user } = useContext(AuthContext);
+  const location = useLocation();
   const [chats, setChats] = useState([]);
   const [friends, setFriends] = useState([]);
   const [currentMessages, setCurrentMessages] = useState([]);
@@ -41,6 +43,26 @@ function Messages() {
       fetchChatsAndFriends();
     }
   }, [user?.username]);
+
+  useEffect(() => {
+    if (!chatsLoading && location.state?.selectedChatId) {
+      const chatToSelect = chats.find((chat) => chat.id === location.state.selectedChatId);
+      if (chatToSelect) handleChatClick(chatToSelect);
+    }
+  }, [chatsLoading]);
+
+  useEffect(() => {
+    if (!activeChat) return;
+    const interval = setInterval(async () => {
+      try {
+        const messages = await getChatMessages(activeChat.id);
+        setCurrentMessages(messages);
+      } catch (error) {
+        console.error("Polling error:", error);
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [activeChat?.id]);
 
   const availableFriends = friends.filter((friend) => {
     return !chats.some((chat) => chat.otherUserUsername === friend.username);

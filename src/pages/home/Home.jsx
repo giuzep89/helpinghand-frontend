@@ -1,12 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
-import { getAllPosts, createHelpRequest, createActivity, deletePost, deletePostAsAdmin, markHelpFound, getUserFriends } from '../../helpers/api.js';
+import { getAllPosts, deletePost, deletePostAsAdmin, markHelpFound, getUserFriends, getUserProfile, createChat } from '../../helpers/api.js';
 import PostCard from '../../components/post-card/PostCard.jsx';
-import Textarea from '../../components/textarea/Textarea.jsx';
+import CreatePostForm from '../../components/create-post-form/CreatePostForm.jsx';
 import Button from '../../components/button/Button.jsx';
-import helpTypes from '../../constants/helpTypes.json';
-import activityTypes from '../../constants/activityTypes.json';
 import './Home.css';
 
 function Home() {
@@ -15,18 +13,8 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [createLoading, setCreateLoading] = useState(false);
-  const [formErrors, setFormErrors] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [newPost, setNewPost] = useState({
-    postType: 'HELP_REQUEST', // just some default values to display something while choosing
-    helpType: 'GARDENING',
-    activityType: 'SPORTS',
-    description: '',
-    location: '',
-    eventDate: ''
-  });
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
@@ -61,57 +49,20 @@ function Home() {
     }
   }, [user?.username]);
 
-  async function handleCreatePost(e) {
-    e.preventDefault();
-
-    const errors = {};
-    if (!newPost.description.trim()) {
-      errors.description = "Description is required";
-    }
-    if (newPost.postType === 'ACTIVITY' && !newPost.location.trim()) {
-      errors.location = "Location is required";
-    }
-    if (newPost.postType === 'ACTIVITY' && !newPost.eventDate) {
-      errors.eventDate = "Event date is required";
-    }
-
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      return;
-    }
-
-    try {
-      setCreateLoading(true);
-      setError(null);
-      setFormErrors({});
-      let createdPost;
-      if (newPost.postType === 'HELP_REQUEST') {
-        createdPost = await createHelpRequest(
-          newPost.description,
-          newPost.helpType,
-          newPost.location
-        );
-      } else {
-        createdPost = await createActivity(
-          newPost.description,
-          newPost.activityType,
-          newPost.location,
-          newPost.eventDate
-        );
-      }
-      setPosts([createdPost, ...posts]);
-      setNewPost({ ...newPost, description: '', location: '', eventDate: '' });
-    } catch (error) {
-      setError("Failed to create post");
-      console.error("Create post error:", error);
-    } finally {
-      setCreateLoading(false);
-    }
+  function handlePostCreated(newPost) {
+    setPosts([newPost, ...posts]);
   }
 
-  // Due to time constraints, this resolves as a simple redirect to the messages page for now, and relies on the user to look up the friend to contact
-  function handleContact() {
-    navigate('/messages');
+  async function handleContact(post) {
+    try {
+      setError(null);
+      const authorProfile = await getUserProfile(post.authorUsername);
+      const newChat = await createChat(authorProfile.id);
+      navigate('/messages', { state: { selectedChatId: newChat.id } });
+    } catch (error) {
+      setError("Failed to start chat");
+      console.error("Contact error:", error);
+    }
   }
 
   function handlePageChange(newPage) {
@@ -153,97 +104,7 @@ function Home() {
   return (
     <main className="home outer-container">
       <div className="home inner-container">
-        <section className="home-create-post">
-          <form onSubmit={handleCreatePost}>
-            <div className="post-type-selector">
-              <label className="post-type-option">
-                <input
-                  type="radio"
-                  name="postType"
-                  value="HELP_REQUEST"
-                  checked={newPost.postType === 'HELP_REQUEST'}
-                  onChange={(e) => setNewPost({ ...newPost, postType: e.target.value })}
-                />
-                <span>Help request</span>
-              </label>
-              <label className="post-type-option">
-                <input
-                  type="radio"
-                  name="postType"
-                  value="ACTIVITY"
-                  checked={newPost.postType === 'ACTIVITY'}
-                  onChange={(e) => setNewPost({ ...newPost, postType: e.target.value })}
-                />
-                <span>Activity</span>
-              </label>
-            </div>
-
-            <div className="post-category-selector">
-              <span className="post-category-label">
-                {newPost.postType === 'HELP_REQUEST' ? 'What do you need help with?' : 'What type of activity?'}
-              </span>
-              {newPost.postType === 'HELP_REQUEST' ? (
-                <select
-                  value={newPost.helpType}
-                  onChange={(e) => setNewPost({ ...newPost, helpType: e.target.value })}
-                >
-                  <option value="" disabled>Select one...</option>
-                  {helpTypes.map((type) => {
-                    return <option key={type.value} value={type.value}>{type.label}</option>;
-                  })}
-                </select>
-              ) : (
-                <select
-                  value={newPost.activityType}
-                  onChange={(e) => setNewPost({ ...newPost, activityType: e.target.value })}
-                >
-                  <option value="" disabled>Select one...</option>
-                  {activityTypes.map((type) => {
-                    return <option key={type.value} value={type.value}>{type.label}</option>;
-                  })}
-                </select>
-              )}
-            </div>
-
-            <Textarea
-              label="Describe your request: *"
-              placeholder="Your request here..."
-              value={newPost.description}
-              onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
-              maxLength={300}
-            />
-            {formErrors.description && <p className="form-error">{formErrors.description}</p>}
-
-            <div className="post-location-input">
-              <label>Location:{newPost.postType === 'ACTIVITY' && ' *'}</label>
-              <input
-                type="text"
-                placeholder="Enter location..."
-                value={newPost.location}
-                onChange={(e) => setNewPost({ ...newPost, location: e.target.value })}
-              />
-            </div>
-            {formErrors.location && <p className="form-error">{formErrors.location}</p>}
-
-            {newPost.postType === 'ACTIVITY' && (
-              <>
-                <div className="post-date-input">
-                  <label>Event date: *</label>
-                  <input
-                    type="date"
-                    value={newPost.eventDate}
-                    onChange={(e) => setNewPost({ ...newPost, eventDate: e.target.value })}
-                  />
-                </div>
-                {formErrors.eventDate && <p className="form-error">{formErrors.eventDate}</p>}
-              </>
-            )}
-
-            <Button type="submit" disabled={createLoading}>
-              {createLoading ? 'Posting...' : 'Post it!'}
-            </Button>
-          </form>
-        </section>
+        <CreatePostForm onPostCreated={handlePostCreated} />
         <section className="home-feed">
           {error && <p className="home-error">{error}</p>}
           {loading ? (

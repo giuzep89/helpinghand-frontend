@@ -1,0 +1,92 @@
+.create-post-form {
+  background-color: var(--color-background-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--sizing-lg);
+  margin-bottom: var(--sizing-lg);
+  box-shadow: var(--shadow);
+}
+
+.create-post-form form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sizing-md);
+}
+
+.create-post-form form button {
+  align-self: center;
+}
+
+.post-type-selector {
+  display: flex;
+  gap: var(--sizing-xl);
+}
+
+.post-type-option {
+  display: flex;
+  align-items: center;
+  gap: var(--sizing-sm);
+  cursor: pointer;
+}
+
+.post-type-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-border);
+  cursor: pointer;
+}
+
+.post-type-option span {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+
+.post-category-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--sizing-md);
+}
+
+.post-category-label {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.post-category-selector select {
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.post-location-input {
+  display: flex;
+  align-items: center;
+  gap: var(--sizing-md);
+}
+
+.post-location-input label {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.post-location-input input {
+  flex: 1;
+}
+
+.post-date-input {
+  display: flex;
+  align-items: center;
+  gap: var(--sizing-md);
+}
+
+.post-date-input label {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.form-error {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+}
