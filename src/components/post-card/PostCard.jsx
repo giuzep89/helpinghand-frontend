@@ -37,7 +37,7 @@ const helpTypeIcons = {
   HOUSE_CHORES: ChoresIcon
 };
 
-function PostCard({ post, currentUsername, friends = [], onContact, onDelete, onHelpFound }) {
+function PostCard({ post, currentUsername, isAdmin = false, friends = [], onContact, onDelete, onHelpFound }) {
   const [showPrizeList, setShowPrizeList] = useState(false);
   const [selectedHelpers, setSelectedHelpers] = useState([]);
 
@@ -101,8 +101,8 @@ function PostCard({ post, currentUsername, friends = [], onContact, onDelete, on
         {canMarkHelpFound && !showPrizeList && (
           <Button onClick={() => setShowPrizeList(true)}>Help Found</Button>
         )}
-        {isAuthor && (
-          <Button variant="delete" onClick={() => onDelete(post.id)}>Delete</Button>
+        {(isAuthor || isAdmin) && (
+          <Button variant="delete" onClick={() => onDelete(post.id, !isAuthor && isAdmin)}>Delete</Button>
         )}
       </div>
 

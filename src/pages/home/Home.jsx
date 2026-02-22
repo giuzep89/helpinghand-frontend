@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
-import { getAllPosts, createHelpRequest, createActivity, deletePost, markHelpFound, getUserFriends } from '../../helpers/api.js';
+import { getAllPosts, createHelpRequest, createActivity, deletePost, deletePostAsAdmin, markHelpFound, getUserFriends } from '../../helpers/api.js';
 import PostCard from '../../components/post-card/PostCard.jsx';
 import Textarea from '../../components/textarea/Textarea.jsx';
 import Button from '../../components/button/Button.jsx';
@@ -119,10 +119,14 @@ function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  async function handleDelete(postId) {
+  async function handleDelete(postId, isAdminDelete = false) {
     try {
       setError(null);
-      await deletePost(postId);
+      if (isAdminDelete) {
+        await deletePostAsAdmin(postId);
+      } else {
+        await deletePost(postId);
+      }
       setPosts(posts.filter((post) => post.id !== postId));
     } catch (error) {
       setError("Failed to delete post");
@@ -254,6 +258,7 @@ function Home() {
                     key={post.id}
                     post={post}
                     currentUsername={user.username}
+                    isAdmin={user.isAdmin}
                     friends={friends}
                     onContact={handleContact}
                     onDelete={handleDelete}

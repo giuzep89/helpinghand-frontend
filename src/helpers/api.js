@@ -51,6 +51,10 @@ export async function deletePost(postId) {
     await axios.delete(`${BASE_URL}/posts/${postId}`, { headers: getToken() });
 }
 
+export async function deletePostAsAdmin(postId) {
+    await axios.delete(`${BASE_URL}/posts/admin/${postId}`, { headers: getToken() });
+}
+
 export async function markHelpFound(postId, helperUserIds) {
     const response = await axios.patch(`${BASE_URL}/posts/help-requests/${postId}/help-found`, helperUserIds, { headers: getToken() });
     return response.data;
