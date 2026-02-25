@@ -1,6 +1,6 @@
 # HelpingHand
 
-HelpingHand is a proof-of-concept REST API built to achieve what most social networks nowadays lack: helping people truly connect better with each other. This is achieved by sharing help requests and activities to join together and discouraging the creation of closed-groups: openness is key.
+HelpingHand is a proof-of-concept full-stack web application built to achieve what most social networks nowadays lack: helping people truly connect better with each other. This is achieved by sharing help requests and activities to join together and discouraging the creation of closed-groups: openness is key.
 
 Being a proof-of-concept, trying out this application may prove rather complex for non-technical users, but hopefully the steps to take are explanatory enough to be followed without much hassle.
 
