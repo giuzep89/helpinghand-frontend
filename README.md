@@ -1,42 +1,28 @@
 # HelpingHand
 
-HelpingHand is a proof-of-concept full-stack web application built to achieve what most social networks nowadays lack: helping people truly connect better with each other. This is achieved by sharing help requests and activities to join together and discouraging the creation of closed-groups: openness is key.
+HelpingHand is a proof-of-concept fullstack web application built to achieve what most social networks nowadays lack: help people truly connect with each other. This is achieved by sharing help requests and activities to come together no matter what one's life circumstances are, and discouraging the creation of closed groups: openness is key.
 
 Being a proof-of-concept, trying out this application may prove rather complex for non-technical users, but hopefully the steps to take are explanatory enough to be followed without much hassle.
 
 You may choose to run this API with the frontend I built for it, but it's also possible to just test the endpoints with a platform like Postman. You'll find the link to a Postman collection at the end of this readme.
 
-Are you a non-technical person and all this gibberish is making your head spin?  Apologies...the project will get easier to run, I promise! The sections you need are Introduction, Downloads, Installation, and Running the Application. Good luck! And don't hesitate to pop me a message if you need any support.
+Are you a non-technical person and all this gibberish is making your head spin?  Apologies...the project will get easier to run in the future, I promise! The sections you need are Downloads, Installation, and Running the Application. Good luck! And don't hesitate to pop me a message if you need any support.
 
 Links to both repositories:
-
 https://github.com/giuzep89/helpinghand-frontend
 https://github.com/giuzep89/helpinghand-backend
 
 ## Table of Contents
 
-- [Introduction](#introduction)
 - [Downloads](#downloads)
-- [Project Structure](#project-structure)
-- [Technologies](#technologies)
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
-- [Running Tests](#running-tests)
 - [Default Users](#default-users)
+- [Core Functionalities](#core-functionalities)
+- [Project Structure](#project-structure)
+- [Technologies](#technologies)
+- [Running Tests](#running-tests)
 - [API Documentation](#api-documentation)
-
-## Introduction
-
-These are the functionalities you can expect when using this API:
-
-- **User Management** - Registration, authentication, profile management, profile pictures
-- **Help Requests** - The core part of this API: users can post requests for help in 14 different categories (gardening, IT support, taxes, etc.)
-- **Activities** - Users can organize and join community activities (sports, culture, volunteering, etc.)
-- **Messaging** - Private chat functionality between users
-- **Friends** - Users can connect with others to see their posts in their feed
-- **Prizes** - The cherry on top: funny prizes that users can award others for helping each other. The tone is kept purposely light-hearted not to take this too seriously
-
-The API uses JWT authentication and role-based authorization with two roles: `ROLE_USER` and `ROLE_ADMIN`.
 
 ## Downloads
 
@@ -54,75 +40,13 @@ Before running this application, you're going to need to download the following:
 
 NOTE: Intellij would probably prompt you to download the JDK after cloning the project, but I still recommend installing it beforehand to avoid any issue
 
-## Project Structure
-
-The application consists of three main components:
-
-- **Frontend** - React single-page application that handles the user interface
-- **Backend** - Spring Boot REST API that handles business logic and authentication
-- **Database** - PostgreSQL database that stores all application data
-
-### Backend
-
-```
-com.giuzep89.helpinghandbackend/
-├── controllers/    # REST endpoints (PostController, UserController, etc.)
-├── services/       # Business logic layer
-├── repositories/   # Spring Data JPA interfaces
-├── models/         # JPA entities (User, Post, Chat, Message, etc.)
-├── dtos/           # Input/Output DTOs with validation
-├── mappers/        # Entity-DTO conversion
-├── exceptions/     # Custom exceptions + global handler
-└── security/       # JWT auth (JwtService, filters, config)
-```
-
-### Frontend
-
-```
-src/
-├── components/     # React components
-├── context/        # React Context (AuthContext)
-├── constants/      # Activity types, help types enums
-├── helpers/        # API calls, token handling, utilities
-├── pages/          # Page components (home, friends, messages, profile, login)
-├── assets/         # Static assets (images, icons)
-├── App.jsx         # Main App component with routing
-└── main.jsx        # React entry point
-```
-
-## Technologies
-
-### Backend
-
-| Category | Technology |
-|----------|------------|
-| Framework | Spring Boot 4.0.1 |
-| Language | Java 21 |
-| Build Tool | Maven |
-| Database | PostgreSQL |
-| ORM | Spring Data JPA / Hibernate |
-| Security | Spring Security + JWT (JJWT 0.13.0) |
-| Validation | Jakarta Validation |
-| Testing | JUnit 5, Mockito, Spring Boot Test |
-
-### Frontend
-
-| Category | Technology |
-|----------|------------|
-| Framework | React 19.2.0 |
-| Build Tool | Vite 7.2.4 |
-| Routing | React Router DOM 7.13.0 |
-| Forms | React Hook Form 7.71.1 |
-| HTTP Client | Axios 1.13.4 |
-| Auth | jwt-decode 4.0.0 |
-
 ## Installation
 
 ### Step 1: Install the IDEs
 
 Install IntelliJ IDEA (for the backend) and WebStorm (for the frontend) from JetBrains. The Community edition of IntelliJ IDEA is free and sufficient for this project.
 
-NOTE: Did you intend to just test the endpoints? No need to install WebStorm!
+NOTE: did you intend to just test the endpoints? No need to install WebStorm!
 
 ### Step 2: Install PostgreSQL
 
@@ -225,34 +149,6 @@ The frontend starts on `http://localhost:5173`.
 3. You should see the home feed with sample posts
 4. Enjoy!
 
-## Running Tests
-
-The backend includes unit tests and integration tests.
-
-### Run all tests
-
-From the terminal:
-
-```bash
-cd helpinghand-backend
-./mvnw test
-```
-
-### Run tests in IntelliJ
-
-Right-click the `src/test/java` folder and select **Run 'All Tests'**.
-
-### Test overview
-
-| Test Class | Type | Description |
-|------------|------|-------------|
-| `PostServiceTest` | Unit | 21 tests for post-related business logic |
-| `ChatServiceTest` | Unit | 13 tests for chat-related business logic |
-| `PostControllerIntegrationTest` | Integration | End-to-end test for post creation |
-| `ChatMessagingControllerIntegrationTest` | Integration | End-to-end test for chat creation |
-
-Tests use an H2 in-memory database (configured in `application-test.properties`).
-
 ## Default Users
 
 The application loads sample data on startup with the following test users:
@@ -273,6 +169,107 @@ The application loads sample data on startup with the following test users:
 | `ROLE_ADMIN` | All user permissions + delete any post + delete any user + view all users |
 
 NOTE: in the frontend, due to time constraints the admin functions are limited to deleting all posts in the home feed.
+
+## Core Functionalities
+
+These are the functionalities you can expect when using this application:
+
+- **User Management** - Registration, authentication, profile management, profile pictures
+- **Help Requests** - The core part of this application: users can post requests for help in 14 different categories (gardening, IT support, taxes, etc.)
+- **Activities** - Users can organize and join community activities (sports, culture, volunteering, etc.)
+- **Messaging** - Private chat functionality between users
+- **Friends** - Users can connect with others to see their posts in their feed
+- **Prizes** - The cherry on top: funny prizes that users can award others for helping each other. The tone is kept purposely light-hearted not to take this too seriously
+
+The API uses JWT authentication and role-based authorization with two roles: `ROLE_USER` and `ROLE_ADMIN`.
+
+## Project Structure
+
+The application consists of three main components:
+
+- **Frontend** - React single-page application that handles the user interface
+- **Backend** - Spring Boot REST API that handles business logic and authentication
+- **Database** - PostgreSQL database that stores all application data
+
+### Backend
+
+```
+com.giuzep89.helpinghandbackend/
+├── controllers/    # REST endpoints (PostController, UserController, etc.)
+├── services/       # Business logic layer
+├── repositories/   # Spring Data JPA interfaces
+├── models/         # JPA entities (User, Post, Chat, Message, etc.)
+├── dtos/           # Input/Output DTOs with validation
+├── mappers/        # Entity-DTO conversion
+├── exceptions/     # Custom exceptions + global handler
+└── security/       # JWT auth (JwtService, filters, config)
+```
+
+### Frontend
+
+```
+src/
+├── components/     # React components
+├── context/        # React Context (AuthContext)
+├── constants/      # Activity types, help types enums
+├── helpers/        # API calls, token handling, utilities
+├── pages/          # Page components (home, friends, messages, profile, login)
+├── assets/         # Static assets (images, icons)
+├── App.jsx         # Main App component with routing
+└── main.jsx        # React entry point
+```
+
+## Technologies
+
+### Backend
+
+| Category | Technology |
+|----------|------------|
+| Framework | Spring Boot 4.0.1 |
+| Language | Java 21 |
+| Build Tool | Maven |
+| Database | PostgreSQL |
+| ORM | Spring Data JPA / Hibernate |
+| Security | Spring Security + JWT (JJWT 0.13.0) |
+| Validation | Jakarta Validation |
+| Testing | JUnit 5, Mockito, Spring Boot Test |
+
+### Frontend
+
+| Category | Technology |
+|----------|------------|
+| Framework | React 19.2.0 |
+| Build Tool | Vite 7.2.4 |
+| Routing | React Router DOM 7.13.0 |
+| Forms | React Hook Form 7.71.1 |
+| HTTP Client | Axios 1.13.4 |
+| Auth | jwt-decode 4.0.0 |
+
+## Running Tests
+
+The backend includes unit tests and integration tests.
+
+### Run all tests
+
+```bash
+cd helpinghand-backend
+./mvnw test
+```
+
+### Run tests in IntelliJ
+
+Right-click the `src/test/java` folder and select **Run 'All Tests'**.
+
+### Test overview
+
+| Test Class | Type | Description |
+|------------|------|-------------|
+| `PostServiceTest` | Unit | 21 tests for post-related business logic |
+| `ChatServiceTest` | Unit | 13 tests for chat-related business logic |
+| `PostControllerIntegrationTest` | Integration | End-to-end test for post creation |
+| `ChatMessagingControllerIntegrationTest` | Integration | End-to-end test for chat creation |
+
+Tests use an H2 in-memory database (configured in `application-test.properties`).
 
 ## API Documentation
 

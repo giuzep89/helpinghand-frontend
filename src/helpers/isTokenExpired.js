@@ -4,7 +4,6 @@ export function isTokenExpired(){
     const token = localStorage.getItem("token");
 
     if (!token){
-        console.log("No token present");
         return true;
     }
 
