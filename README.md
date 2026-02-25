@@ -9,6 +9,7 @@ You may choose to run this API with the frontend I built for it, but it's also p
 Are you a non-technical person and all this gibberish is making your head spin?  Apologies...the project will get easier to run, I promise! The sections you need are Introduction, Downloads, Installation, and Running the Application. Good luck! And don't hesitate to pop me a message if you need any support.
 
 Links to both repositories:
+
 https://github.com/giuzep89/helpinghand-frontend
 https://github.com/giuzep89/helpinghand-backend
 
@@ -121,7 +122,7 @@ src/
 
 Install IntelliJ IDEA (for the backend) and WebStorm (for the frontend) from JetBrains. The Community edition of IntelliJ IDEA is free and sufficient for this project.
 
-NOTE: did you intend to just test the endpoints? No need to install WebStorm!
+NOTE: Did you intend to just test the endpoints? No need to install WebStorm!
 
 ### Step 2: Install PostgreSQL
 
@@ -199,7 +200,7 @@ Using IntelliJ IDEA:
 3a. You can also run it by typing the following in the terminal:
 
 ```bash
-./mvnw spring-boot:run  
+./mvnw spring-boot:run
 ```
 
 The backend starts on `http://localhost:8080`.
@@ -229,6 +230,8 @@ The frontend starts on `http://localhost:5173`.
 The backend includes unit tests and integration tests.
 
 ### Run all tests
+
+From the terminal:
 
 ```bash
 cd helpinghand-backend
