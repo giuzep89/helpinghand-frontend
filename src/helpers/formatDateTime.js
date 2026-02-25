@@ -1,4 +1,4 @@
-// Converts date picker value to LocalDateTime format for API
+// Converts date to LocalDateTime format for API
 export function toApiDateTime(dateString) {
     if (!dateString) {
         return null;
