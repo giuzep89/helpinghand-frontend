@@ -1,3 +1,5 @@
+![HelpingHand screenshot 1.png](./src/assets/screenshot1.png)
+
 # HelpingHand
 
 HelpingHand is a proof-of-concept fullstack web application built to achieve what most social networks nowadays lack: help people truly connect with each other. This is achieved by sharing help requests and activities to come together no matter what one's life circumstances are, and discouraging the creation of closed groups: openness is key.
