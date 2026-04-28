@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./getToken.js";
 import { toApiDateTime } from "./formatDateTime.js";
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:8080";
 
 // Authentication ---------------------------------------------------
 

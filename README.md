@@ -69,7 +69,7 @@ Then clone in the IDE:
 3. Paste the SSH link and choose a directory
 4. Click **Clone**
 
-NOTE: If Webstorm prompts you to run npm install, go ahead and do it! If it's succesful, you can skip step 6.
+NOTE: If Webstorm prompts you to run npm install, go ahead and do it! If it's successful, you can skip step 7.
 
 Repository links:
 - Backend: `https://github.com/giuzep89/helpinghand-backend`
@@ -105,7 +105,23 @@ The backend requires two environment variables; the PostgreSQL password is the o
 
 6. Apply -> Ok
 
-### Step 6: Install frontend dependencies
+### Step 6: Set environment variables for the frontend
+
+For the frontend to communicate with the backend API, you need to set the base URL:
+
+1. Open WebStorm
+2. Go to the Menu bar -> Run → Edit Configurations
+3. Select your Vite configuration on the left
+4. Click on "Modify options" and select Environment variables
+5. Add this line in the Environment variable input field:
+
+```
+VITE_BASE_URL=http://localhost:8080
+```
+
+6. Apply -> Ok
+
+### Step 7: Install frontend dependencies
 
 After having cloned the project in WebStorm as described earlier, with the project open in front of you, open the terminal and type the following, then hit enter:
 
