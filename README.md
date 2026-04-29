@@ -2,6 +2,8 @@
 
 ![HelpingHand screenshot 1.png](./src/assets/screenshot1.png)
 
+UPDATE: The app is live! Give it a go: https://helpinghand-frontend.vercel.app
+
 HelpingHand is a proof-of-concept fullstack web application built to achieve what most social networks nowadays lack: help people truly connect with each other. This is achieved by sharing help requests and activities to come together no matter what one's life circumstances are, and discouraging the creation of closed groups: openness is key.
 
 Being a proof-of-concept, trying out this application may prove rather complex for non-technical users, but hopefully the steps to take are explanatory enough to be followed without much hassle.
